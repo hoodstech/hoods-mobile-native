@@ -1,18 +1,14 @@
-.btn {
-    background-color: #6200ea;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
-  
-  .btn-clicked {
-    transform: scale(0.9);
-  }
-  
+.animated-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.animated-button.clicked {
+  transform: scale(1.1);
+}
