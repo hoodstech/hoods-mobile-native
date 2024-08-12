@@ -3,9 +3,10 @@ import { Navigation } from './navigation'
 const App = (): React.JSX.Element => {
   return (
     <>
-      <Navigation />§
+      <Navigation />
     </>
   )
 }
 
 export default App
+/* Index page */
