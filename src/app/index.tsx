@@ -3,7 +3,7 @@ import { Navigation } from './navigation'
 const App = (): React.JSX.Element => {
   return (
     <>
-      <Navigation />
+      <Navigation />§
     </>
   )
 }
