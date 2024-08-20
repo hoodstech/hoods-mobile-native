@@ -1,9 +1,10 @@
-import { KeyboardAvoidingView, Text } from 'react-native'
-import AnimatedButton from '~/shared/ui/button/button';
+import { KeyboardAvoidingView } from 'react-native'
+
+import { Button, CustomText } from '~/shared/ui'
 
 export const HomeScreen = () => (
   <KeyboardAvoidingView behavior="padding">
-    <Text>HomeScreen</Text>
-    <AnimatedButton title="Click me" onPress={() => alert('Button pressed!')} />
+    <CustomText variant='h1'>Hoods знает, что вам нужно</CustomText>
+    <Button title="Click me" onPress={() => alert('Button pressed!')} />
   </KeyboardAvoidingView>
 )

@@ -1,27 +1,29 @@
-import React, { useState } from 'react';
-import { Pressable, Text, StyleSheet, Animated } from 'react-native';
+import React, { useState } from 'react'
+import { Pressable, StyleSheet, Animated } from 'react-native'
 
-type AnimatedButtonProps = {
+import { CustomText } from '../CustomText'
+
+type ButtonProps = {
   onPress?: () => void;
   title: string;
-};
+}
 
-const AnimatedButton: React.FC<AnimatedButtonProps> = ({ onPress, title }) => {
-  const [scale] = useState(new Animated.Value(1));
+export const Button: React.FC<ButtonProps> = ({ onPress, title }) => {
+  const [scale] = useState(new Animated.Value(1))
 
   const handlePressIn = () => {
     Animated.spring(scale, {
       toValue: 1.1,
       useNativeDriver: true,
-    }).start();
-  };
+    }).start()
+  }
 
   const handlePressOut = () => {
     Animated.spring(scale, {
       toValue: 1,
       useNativeDriver: true,
-    }).start();
-  };
+    }).start()
+  }
 
   return (
     <Pressable
@@ -31,11 +33,11 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({ onPress, title }) => {
       style={styles.button}
     >
       <Animated.View style={{ transform: [{ scale }] }}>
-        <Text style={styles.text}>{title}</Text>
+        <CustomText variant='paragraphMedium'>{title}</CustomText>
       </Animated.View>
     </Pressable>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   button: {
@@ -46,11 +48,4 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: 120,
   },
-  text: {
-    color: 'white',
-    fontSize: 16,
-    textAlign: 'center',
-  },
-});
-
-export default AnimatedButton;
+})
