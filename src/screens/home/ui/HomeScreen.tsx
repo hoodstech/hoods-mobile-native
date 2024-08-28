@@ -4,6 +4,6 @@ import AnimatedButton from '~/shared/ui/button/button';
 export const HomeScreen = () => (
   <KeyboardAvoidingView behavior="padding">
     <Text>HomeScreen</Text>
-    <AnimatedButton title="Click me" onPress={() => alert('Button pressed!')} />
+    <AnimatedButton title="Click me" />
   </KeyboardAvoidingView>
 )

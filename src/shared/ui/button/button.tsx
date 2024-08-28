@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Pressable, Text, StyleSheet, Animated } from 'react-native';
+import { Pressable, Text, Animated } from 'react-native';
+import styles from './buttonStyles';
 
 type AnimatedButtonProps = {
   onPress?: () => void;
@@ -11,46 +12,30 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({ onPress, title }) => {
 
   const handlePressIn = () => {
     Animated.spring(scale, {
-      toValue: 1.1,
+      toValue: 1.1, // Увеличиваем размер кнопки при нажатии
       useNativeDriver: true,
     }).start();
   };
 
   const handlePressOut = () => {
     Animated.spring(scale, {
-      toValue: 1,
+      toValue: 1, // Возвращаем кнопке исходный размер
       useNativeDriver: true,
     }).start();
   };
 
   return (
-    <Pressable
-      onPressIn={handlePressIn}
-      onPressOut={handlePressOut}
-      onPress={onPress}
-      style={styles.button}
-    >
-      <Animated.View style={{ transform: [{ scale }] }}>
+    <Animated.View style={[styles.button_styles, { transform: [{ scale }] }]}>
+      <Pressable
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+        onPress={onPress}
+        style={styles.button_styles}
+      >
         <Text style={styles.text}>{title}</Text>
-      </Animated.View>
-    </Pressable>
+      </Pressable>
+    </Animated.View>
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    marginLeft: 135,
-    paddingTop: 10,
-    padding: 10,
-    backgroundColor: '#474A51',
-    borderRadius: 5,
-    width: 120,
-  },
-  text: {
-    color: 'white',
-    fontSize: 16,
-    textAlign: 'center',
-  },
-});
 
 export default AnimatedButton;
