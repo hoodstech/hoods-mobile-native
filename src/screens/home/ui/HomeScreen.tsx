@@ -1,7 +1,21 @@
-import { KeyboardAvoidingView, Text } from 'react-native'
+import { useState } from 'react'
+import { KeyboardAvoidingView } from 'react-native'
 
-export const HomeScreen = () => (
-  <KeyboardAvoidingView behavior="padding">
-    <Text>HomeScreen</Text>
-  </KeyboardAvoidingView>
-)
+import { Button, CustomText, Input } from '~/shared/ui'
+
+export const HomeScreen = () => {
+	const [inputValue, setInputValue] = useState('')
+
+	return (
+		<KeyboardAvoidingView behavior="padding">
+			<CustomText variant="h1">Hoods знает, что вам нужно</CustomText>
+			<Button title="Click me" onPress={() => alert('Button pressed!')} />
+			<Input
+				label="test label"
+				value={inputValue}
+				onChangeText={setInputValue}
+				required
+			/>
+		</KeyboardAvoidingView>
+	)
+}
