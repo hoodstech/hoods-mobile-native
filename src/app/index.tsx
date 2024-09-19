@@ -1,11 +1,13 @@
 import { Navigation } from './navigation'
-import { InitAssetsProvider } from './providers'
+import { InitAssetsProvider, QueryProvider } from './providers'
 
 const App = (): React.JSX.Element => {
   return (
-    <InitAssetsProvider>
-      <Navigation />
-    </InitAssetsProvider>
+    <QueryProvider>
+      <InitAssetsProvider>
+        <Navigation />
+      </InitAssetsProvider>
+    </QueryProvider>
   )
 }
 
