@@ -1,13 +1,13 @@
 import { Navigation } from './navigation'
-import { Button } from '../shared/ui/Button/Button'
+import { InitAssetsProvider, QueryProvider } from './providers'
 
 const App = (): React.JSX.Element => {
-  const handleButtonPress = () => {
-  };
   return (
-    <>
-      <Button title="Click Me" onPress={handleButtonPress} />
-    </>
+    <QueryProvider>
+      <InitAssetsProvider>
+        <Navigation />
+      </InitAssetsProvider>
+    </QueryProvider>
   )
 }
 
