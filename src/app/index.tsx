@@ -1,5 +1,8 @@
+import '@expo/metro-runtime'
+
 import { Navigation } from './navigation'
 import { InitAssetsProvider, QueryProvider } from './providers'
+
 
 const App = (): React.JSX.Element => {
   return (

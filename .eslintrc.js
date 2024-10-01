@@ -11,8 +11,6 @@ module.exports = {
 		'import-newlines',
 		'import',
 		'@stylistic',
-		'prettier',
-		'prettier/react',
 	],
 	extends: [
 		'expo',
