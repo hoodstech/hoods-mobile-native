@@ -1,7 +1,6 @@
-import { useState } from 'react'
-import { Pressable, StyleSheet, Animated } from 'react-native'
-
-import { CustomText } from '../CustomText/CustomText'
+import { useState } from 'react';
+import { Pressable, StyleSheet, Animated } from 'react-native';
+import { CustomText } from '../CustomText/CustomText';
 
 type ButtonProps = {
   onPress?: () => void;
@@ -9,21 +8,21 @@ type ButtonProps = {
 }
 
 export const Button: React.FC<ButtonProps> = ({ onPress, title }) => {
-  const [scale] = useState(new Animated.Value(1))
+  const [scale] = useState(new Animated.Value(1));
 
   const handlePressIn = () => {
     Animated.spring(scale, {
       toValue: 1.1,
       useNativeDriver: true,
-    }).start()
-  }
+    }).start();
+  };
 
   const handlePressOut = () => {
     Animated.spring(scale, {
       toValue: 1,
       useNativeDriver: true,
-    }).start()
-  }
+    }).start();
+  };
 
   return (
     <Animated.View style={{ transform: [{ scale }] }}>
@@ -36,8 +35,8 @@ export const Button: React.FC<ButtonProps> = ({ onPress, title }) => {
         <CustomText variant="paragraphMedium">{title}</CustomText>
       </Pressable>
     </Animated.View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   button: {
@@ -49,4 +48,4 @@ const styles = StyleSheet.create({
     width: 120,
     alignItems: 'center',
   },
-})
+});
