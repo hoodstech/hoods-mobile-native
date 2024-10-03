@@ -1,23 +1,17 @@
 import React from 'react'
-import { Text, StyleSheet } from 'react-native'
-import type { TextProps } from 'react-native'
+import { Text, StyleSheet, TextProps } from 'react-native'
 
-type CustomTextVariants = 'h1' | 'h2' | 'paragraphMedium' | 'paragraphLight' 
+type CustomTextVariants = 'h1' | 'h2' | 'paragraphMedium' | 'paragraphLight'
 
-type CustomTextProps = TextProps & {
+interface CustomTextProps extends TextProps {
   children: React.ReactNode;
-  variant: CustomTextVariants
+  variant: CustomTextVariants;
 }
 
-// TODO: учесть тему в будущем
-export const CustomText = ({ children, variant, ...rest }: CustomTextProps) => {
+// TODO: Учесть тему в будущем
+export const CustomText: React.FC<CustomTextProps> = ({ children, variant, ...rest }) => {
   return (
-    <Text
-      style={[
-        styles.defaultFontStyles,
-        styles[variant],
-      ]}
-      {...rest}>
+    <Text style={[styles.defaultFontStyles, styles[variant]]} {...rest}>
       {children}
     </Text>
   )
@@ -26,12 +20,12 @@ export const CustomText = ({ children, variant, ...rest }: CustomTextProps) => {
 const styles = StyleSheet.create({
   defaultFontStyles: {
     color: '#0F0F14',
-    fontFamily: 'Manrope_400Regular',
+    fontFamily: 'Manrope_400Regular',  
     fontSize: 14,
   },
   h1: {
     fontFamily: 'Manrope_600SemiBold',
-    fontSize: 36, // TODO: заменить на функцию из react-native-dimensions-matter
+    fontSize: 36,  // TODO: использовать адаптацию для размеров экрана
   },
   h2: {
     fontFamily: 'Manrope_800ExtraBold',
