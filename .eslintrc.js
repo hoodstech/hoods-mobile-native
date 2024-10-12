@@ -6,12 +6,7 @@ module.exports = {
 		tsconfigRootDir: __dirname,
 		sourceType: 'module',
 	},
-	plugins: [
-		'@typescript-eslint/eslint-plugin',
-		'import-newlines',
-		'import',
-		'@stylistic',
-	],
+	plugins: ['@typescript-eslint/eslint-plugin', 'import-newlines', 'import', '@stylistic'],
 	extends: [
 		'expo',
 		'plugin:@typescript-eslint/recommended',

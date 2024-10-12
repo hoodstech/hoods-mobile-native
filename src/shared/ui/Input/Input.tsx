@@ -1,4 +1,4 @@
-import React, { ReactNode, useId } from 'react'
+import React, { ForwardedRef, forwardRef, ReactNode, useId } from 'react'
 import { StyleSheet, TextInput, TextInputProps } from 'react-native'
 
 interface InputProps extends TextInputProps {
@@ -7,13 +7,7 @@ interface InputProps extends TextInputProps {
 	required?: boolean
 }
 
-export const Input = ({
-	label,
-	className,
-	id: propId,
-	required,
-	...props
-}: InputProps) => {
+const BaseInput = ({ label, className, id: propId, required, ...props }: InputProps, ref?: ForwardedRef<TextInput>) => {
 	const id = useId()
 
 	const elementId = propId || id
@@ -27,10 +21,12 @@ export const Input = ({
 				</label>
 			)}
 
-			<TextInput id={elementId} style={styles.root} {...props} />
+			<TextInput ref={ref} id={elementId} style={styles.root} {...props} />
 		</div>
 	)
 }
+
+export const Input = forwardRef(BaseInput)
 
 const styles = StyleSheet.create({
 	wrapper: {

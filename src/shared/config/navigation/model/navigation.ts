@@ -1,3 +1,4 @@
 export enum AppNavigationScreen {
-  Home = 'home',
+	Home = 'home',
+	SignUp = 'sign-up',
 }
