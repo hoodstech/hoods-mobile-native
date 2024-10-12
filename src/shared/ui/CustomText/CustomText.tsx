@@ -9,9 +9,9 @@ interface CustomTextProps extends TextProps {
 }
 
 // TODO: Учесть тему в будущем
-export const CustomText: React.FC<CustomTextProps> = ({ children, variant, ...props }) => {
+export const CustomText: React.FC<CustomTextProps> = ({ children, variant, style, ...props }) => {
 	return (
-		<Text style={[styles.defaultFontStyles, styles[variant]]} {...props}>
+		<Text style={[styles.defaultFontStyles, styles[variant], style]} {...props}>
 			{children}
 		</Text>
 	)

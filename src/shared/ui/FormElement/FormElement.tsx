@@ -1,26 +1,22 @@
-import { ReactNode } from 'react'
-import {
-	Control,
-	Controller,
-	ControllerRenderProps,
-	FieldValues,
-	Path,
-	PathValue,
-	UseControllerProps,
-} from 'react-hook-form'
+import { ReactNode, useId } from 'react'
+import { Control, Controller, ControllerRenderProps, FieldValues, Path, UseControllerProps } from 'react-hook-form'
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
+import * as yup from 'yup'
 
 import { CustomText } from '../CustomText'
 
-interface IFormElementRentProps<TFieldValues extends FieldValues>
+interface IFormElementProps<TFieldValues extends FieldValues>
 	extends ControllerRenderProps<TFieldValues, Path<TFieldValues>> {
-	required?: boolean
-	defaultValue?: PathValue<TFieldValues, Path<TFieldValues>> | undefined
+	id?: string
 }
 
-interface IFormElement<TFieldValues extends FieldValues> extends UseControllerProps<TFieldValues> {
+interface IFormElement<TFieldValues extends FieldValues>
+	extends Pick<UseControllerProps<TFieldValues>, 'name' | 'rules' | 'control'> {
 	control: Control<TFieldValues>
 	label?: ReactNode
-	renderElement: (props: IFormElementRentProps<TFieldValues>) => ReactNode
+	style?: StyleProp<ViewStyle>
+	validateSchema?: yup.ObjectSchema<TFieldValues>
+	renderElement: (props: IFormElementProps<TFieldValues>) => ReactNode
 }
 
 export const FormElement = <TFieldValues extends FieldValues>({
@@ -28,25 +24,61 @@ export const FormElement = <TFieldValues extends FieldValues>({
 	name,
 	rules,
 	label,
-	defaultValue,
+	style,
+	validateSchema,
 	renderElement,
-}: IFormElement<TFieldValues>) => (
-	<Controller
-		control={control}
-		name={name}
-		rules={rules}
-		render={({ field, fieldState: { error } }) => (
-			<>
-				{label && <CustomText variant="paragraphMedium">{label}</CustomText>}
+	...props
+}: IFormElement<TFieldValues>) => {
+	const elementId = useId()
 
-				{renderElement({
-					required: Boolean(rules?.required),
-					defaultValue,
-					...field,
-				})}
+	const isRequired =
+		!(validateSchema?.describe().fields[name] as yup.SchemaDescription)?.optional || Boolean(rules?.required)
 
-				{error?.message && <CustomText variant="paragraphMedium">{error.message}</CustomText>}
-			</>
-		)}
-	/>
-)
+	return (
+		<Controller
+			control={control}
+			name={name}
+			rules={rules}
+			render={({ field, fieldState: { error } }) => (
+				<View style={[styles.wrapper, style]}>
+					{label && (
+						<label htmlFor={elementId} style={styles.label}>
+							{label}
+							{isRequired && <span style={styles.asterisk}>*</span>}
+						</label>
+					)}
+
+					{renderElement({
+						id: elementId,
+						...props,
+						...field,
+					})}
+
+					{error?.message && (
+						<CustomText variant="paragraphMedium" style={styles.error}>
+							{error.message}
+						</CustomText>
+					)}
+				</View>
+			)}
+		/>
+	)
+}
+
+const styles = StyleSheet.create({
+	wrapper: {
+		display: 'flex',
+		flexDirection: 'column',
+		gap: 6,
+	},
+	label: {
+		fontFamily: 'Manrope_400Regular',
+		fontSize: 14,
+	},
+	asterisk: {
+		color: '#f00',
+	},
+	error: {
+		color: '#f00',
+	},
+})

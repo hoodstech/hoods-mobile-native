@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Image, KeyboardAvoidingView } from 'react-native'
+import { Image, KeyboardAvoidingView, StyleSheet, View } from 'react-native'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -58,7 +58,7 @@ export const SignUpScreen = () => {
 	const handlePressButton = () => (isFirstStep ? setStep(2) : handleSubmit(onSubmit)())
 
 	return (
-		<KeyboardAvoidingView behavior="padding">
+		<KeyboardAvoidingView behavior="padding" style={styles.wrapper}>
 			<Image source={require('~/shared/assets/images/sign-up.png')} />
 
 			<CustomText variant="h1">{isFirstStep ? 'Hoods знает, что вам нужно' : 'Введите имя пользователя'}</CustomText>
@@ -70,22 +70,25 @@ export const SignUpScreen = () => {
 			</CustomText>
 
 			{isFirstStep ? (
-				<>
+				<View>
 					<FormElement
 						name="email"
 						control={control}
+						validateSchema={signUpSchema}
 						renderElement={(props) => <Input placeholder="Эл. почта" {...props} />}
 					/>
 					<FormElement
 						name="password"
 						control={control}
+						validateSchema={signUpSchema}
 						renderElement={(props) => <Input placeholder="Пароль" {...props} />}
 					/>
-				</>
+				</View>
 			) : (
 				<FormElement
 					name="name"
 					control={control}
+					validateSchema={signUpSchema}
 					renderElement={(props) => <Input placeholder="Имя пользователя" {...props} />}
 				/>
 			)}
@@ -98,3 +101,7 @@ export const SignUpScreen = () => {
 		</KeyboardAvoidingView>
 	)
 }
+
+const styles = StyleSheet.create({
+	wrapper: {},
+})
