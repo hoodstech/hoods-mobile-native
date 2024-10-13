@@ -45,6 +45,7 @@ export const SignUpScreen = () => {
 		formState: { isValid },
 	} = useForm({
 		mode: 'onBlur',
+		disabled: isPending,
 		resolver: yupResolver(signUpSchema),
 		defaultValues: {
 			email: '',
