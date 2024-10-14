@@ -31,6 +31,7 @@ module.exports = {
 		'@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
 		'@stylistic/comma-dangle': ['error', 'always-multiline'],
 		'@stylistic/comma-spacing': ['error', { before: false, after: true }],
+		'@stylistic/object-curly-spacing': ["error", "always", { "objectsInObjects": false, "arraysInObjects": false }],
 		'import-newlines/enforce': ['error', { items: 7, 'max-len': 120 }],
 		'import/order': [
 			'error',
@@ -47,7 +48,6 @@ module.exports = {
 				],
 			},
 		],
-
 		'@typescript-eslint/interface-name-prefix': 'off',
 		'@typescript-eslint/explicit-function-return-type': 'off',
 		'@typescript-eslint/explicit-module-boundary-types': 'off',

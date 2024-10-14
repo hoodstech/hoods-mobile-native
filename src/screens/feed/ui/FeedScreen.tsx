@@ -1,11 +1,13 @@
-import { KeyboardAvoidingView } from 'react-native'
+import { KeyboardAvoidingView, Dimensions } from 'react-native'
 
-import { CustomText } from '~/shared/ui'
+import { FeedList } from '~/widgets/feed-list/ui/FeedList'
 
 export const FeedScreen = () => {
+  const windowHeight = Dimensions.get('window').height
+
 	return (
-		<KeyboardAvoidingView behavior="padding">
-			<CustomText>Тут фид</CustomText>
+		<KeyboardAvoidingView style={{ maxHeight: windowHeight }} behavior="padding">
+			<FeedList />
 		</KeyboardAvoidingView>
 	)
 }
