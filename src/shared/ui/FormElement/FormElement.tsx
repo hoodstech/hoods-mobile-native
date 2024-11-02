@@ -1,6 +1,6 @@
 import { ReactNode, useId } from 'react'
 import { Control, Controller, ControllerRenderProps, FieldValues, Path, UseControllerProps } from 'react-hook-form'
-import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
+import { StyleProp, StyleSheet, View, ViewStyle, Text } from 'react-native'
 import * as yup from 'yup'
 
 import { CustomText } from '../CustomText'
@@ -42,10 +42,10 @@ export const FormElement = <TFieldValues extends FieldValues>({
 			render={({ field, fieldState: { error } }) => (
 				<View style={[styles.wrapper, style]}>
 					{label && (
-						<label htmlFor={elementId} style={styles.label}>
+						<Text style={styles.label}>
 							{label}
-							{isRequired && <span style={styles.asterisk}>*</span>}
-						</label>
+							{isRequired && <Text style={styles.asterisk}>*</Text>}
+						</Text>
 					)}
 
 					{renderElement({
@@ -76,9 +76,9 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 	},
 	asterisk: {
-		color: '#f00',
+		color: '#f00', // можно передать динамически через пропс
 	},
 	error: {
-		color: '#f00',
+		color: '#f00', // динамически подстраивать под тему
 	},
 })

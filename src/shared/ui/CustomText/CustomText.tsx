@@ -25,8 +25,12 @@ const styles = StyleSheet.create({
 	},
 	h1: {
 		fontFamily: 'Manrope_600SemiBold',
-		fontSize: 36, // TODO: использовать адаптацию для размеров экрана
-	},
+		fontSize: 36,
+		textAlign: 'left', 
+		width: 305,
+		height: 77,
+		opacity: 0,
+	  },
 	h2: {
 		fontFamily: 'Manrope_800ExtraBold',
 		fontSize: 16,
