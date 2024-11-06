@@ -7,7 +7,7 @@ import { FeedScreen } from '~/screens/feed'
 const NavigationStack = createNativeStackNavigator()
 
 export const Navigation = () => (
-	<NavigationStack.Navigator initialRouteName={AppNavigationScreen.Feed}>
+	<NavigationStack.Navigator initialRouteName={AppNavigationScreen.Home}>
 		<NavigationStack.Screen
 			options={{ headerShown: false }}
 			name={AppNavigationScreen.Home}

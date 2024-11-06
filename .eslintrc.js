@@ -25,7 +25,7 @@ module.exports = {
 		node: true,
 		jest: true,
 	},
-	ignorePatterns: ['.eslintrc.js', 'babel.config.js'],
+	ignorePatterns: ['.eslintrc.js', 'babel.config.js', 'metro.config.js'],
 	rules: {
 		'@stylistic/semi': ['error', 'never'],
 		'@stylistic/quotes': ['error', 'single', { avoidEscape: true }],

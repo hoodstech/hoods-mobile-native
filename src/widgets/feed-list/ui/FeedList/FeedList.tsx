@@ -8,6 +8,8 @@ import type { Good } from '../../model'
 import { GOODS_MOCKS } from '../../model'
 import { ActionButton } from '../ActionButton'
 
+import AppleLogo from '~/shared/icons/apple.svg'
+
 export const FeedList = () => {
   const ref = useRef<SwiperCardRefType>()
 
@@ -72,7 +74,7 @@ export const FeedList = () => {
             ref.current?.swipeLeft()
           }}
         >
-          <AntDesign name="close" size={32} color="white" />
+          <AppleLogo />
         </ActionButton>
         <ActionButton
           style={styles.button}
