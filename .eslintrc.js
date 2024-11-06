@@ -2,7 +2,7 @@
 module.exports = {
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
-		project: 'tsconfig.json',
+		project: './tsconfig.json',
 		tsconfigRootDir: __dirname,
 		sourceType: 'module',
 	},
@@ -25,15 +25,14 @@ module.exports = {
 		node: true,
 		jest: true,
 	},
-	ignorePatterns: ['.eslintrc.js'],
+	ignorePatterns: ['.eslintrc.js', 'babel.config.js', 'metro.config.js'],
 	rules: {
 		'@stylistic/semi': ['error', 'never'],
 		'@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
 		'@stylistic/comma-dangle': ['error', 'always-multiline'],
 		'@stylistic/comma-spacing': ['error', { before: false, after: true }],
-
-		'import-newlines/enforce': ['error', { items: 40, 'max-len': 120 }],
-
+		'@stylistic/object-curly-spacing': ["error", "always", { "objectsInObjects": false, "arraysInObjects": false }],
+		'import-newlines/enforce': ['error', { items: 7, 'max-len': 120 }],
 		'import/order': [
 			'error',
 			{
@@ -49,7 +48,6 @@ module.exports = {
 				],
 			},
 		],
-
 		'@typescript-eslint/interface-name-prefix': 'off',
 		'@typescript-eslint/explicit-function-return-type': 'off',
 		'@typescript-eslint/explicit-module-boundary-types': 'off',

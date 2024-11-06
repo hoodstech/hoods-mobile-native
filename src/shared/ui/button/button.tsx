@@ -26,7 +26,7 @@ export const Button: React.FC<ButtonProps> = ({ onPress, title }) => {
   }
 
   return (
-    <Animated.View style={{ transform: [{ scale }] }}>
+    <Animated.View style={{ transform: [{ scale }]}}>
       <Pressable
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
