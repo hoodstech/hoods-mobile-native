@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { View, Platform, Pressable, Animated, StyleSheet } from 'react-native'
-import { useLinkTo, useTheme } from '@react-navigation/native'
+import { useLinkTo } from '@react-navigation/native'
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
 
 import StarIconFill from '../../icons/star-fill.svg'
@@ -9,7 +9,6 @@ import GhostIcon from '../../icons/ghost.svg'
 import ProfileIcon from '../../icons/community.svg'
 
 export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
-  const { colors } = useTheme()
   const linkTo = useLinkTo()
   const animatedValue = useRef(new Animated.Value(state.index)).current
 
