@@ -1,22 +1,30 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import { AppNavigationScreen } from '~/shared/config/navigation'
+import { ProfileScreen } from '~/screens/profile'
 import { HomeScreen } from '~/screens/home'
 import { FeedScreen } from '~/screens/feed'
+import { TabBar } from '~/shared/ui/TabBar/TabBar'
 
-const NavigationStack = createNativeStackNavigator()
+const Tab = createBottomTabNavigator()
 
-export const Navigation = () => (
-	<NavigationStack.Navigator initialRouteName={AppNavigationScreen.Home}>
-		<NavigationStack.Screen
-			options={{ headerShown: false }}
-			name={AppNavigationScreen.Home}
-			component={HomeScreen}
-		/>
-		<NavigationStack.Screen
-			options={{ headerShown: false }}
-			name={AppNavigationScreen.Feed}
-			component={FeedScreen}
-		/>
-	</NavigationStack.Navigator>
-)
+export const Navigation = () => {
+  return (
+    <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
+      <Tab.Screen
+        name="home"
+        component={HomeScreen}
+        options={{ tabBarLabel: '' }} 
+      />
+      <Tab.Screen
+        name="feed"
+        component={FeedScreen}
+        options={{ tabBarLabel: '' }} 
+      />
+      <Tab.Screen
+        name="profile"
+        component={ProfileScreen}
+        options={{ tabBarLabel: '' }} 
+      />
+    </Tab.Navigator>
+  )
+}
