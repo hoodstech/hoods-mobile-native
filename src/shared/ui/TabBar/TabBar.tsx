@@ -4,9 +4,11 @@ import { useLinkTo } from '@react-navigation/native'
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
 
 import StarIconFill from '../../icons/star-fill.svg'
-import StarIconOutlined from '../../icons/star-outline.svg'
+import StarIconOutlined from '../../icons/star-black.svg'
 import GhostIcon from '../../icons/ghost.svg'
+import GhostSleeping from '../../icons/ghost-sleeping.svg'
 import ProfileIcon from '../../icons/community.svg'
+import ProfileBlack from '../../icons/community-black.svg'
 
 export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const linkTo = useLinkTo()
@@ -73,10 +75,14 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
               : <StarIconFill width={24} height={24} fill="#000" />
             break
           case 'feed':
-            IconComponent = <GhostIcon width={24} height={24} fill={isFocused ? '#fff' : '#222'} />
+            IconComponent = isFocused 
+            ? <GhostIcon width={24} height={24} fill={index === 0 ? '#000' : '#fff'} />
+            : <GhostSleeping width={24} height={24} fill="#000" />
             break
           case 'profile':
-            IconComponent = <ProfileIcon width={24} height={24} fill={isFocused ? '#fff' : '#222'} />
+            IconComponent = isFocused 
+              ? <ProfileBlack width={24} height={24} fill={index === 0 ? '#000' : '#fff'} />
+              : <ProfileIcon width={24} height={24} fill="#000" />
             break
           default:
             IconComponent = null
