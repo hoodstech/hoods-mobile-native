@@ -1,3 +1,5 @@
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+
 import { Navigation } from './navigation'
 import { InitAssetsProvider, QueryProvider } from './providers'
 
@@ -6,7 +8,9 @@ const App = (): React.JSX.Element => {
   return (
     <QueryProvider>
       <InitAssetsProvider>
-        <Navigation />
+        <SafeAreaProvider>
+          <Navigation />
+        </SafeAreaProvider>
       </InitAssetsProvider>
     </QueryProvider>
   )
