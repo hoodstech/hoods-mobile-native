@@ -5,6 +5,7 @@ import {
   Manrope_400Regular,
   Manrope_500Medium,
   Manrope_600SemiBold,
+  Manrope_700Bold,
   Manrope_800ExtraBold,
 } from '@expo-google-fonts/manrope'
 import * as SplashScreen from 'expo-splash-screen'
@@ -21,6 +22,7 @@ export const InitAssetsProvider: FC<InitAssetsProviderProps> = ({ children }) =>
     Manrope_400Regular,
     Manrope_500Medium,
     Manrope_600SemiBold,
+    Manrope_700Bold,
     Manrope_800ExtraBold,
   })
 

@@ -1,7 +1,7 @@
 import { memo } from 'react'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
 
-type ActionButtonProps = TouchableOpacity['props'] & {
+type ActionButtonProps = TouchableOpacityProps & {
   onTap?: () => void;
 }
 

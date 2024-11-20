@@ -1,13 +1,22 @@
-import { KeyboardAvoidingView, Dimensions } from 'react-native'
+import { View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { FeedList } from '~/widgets/feed-list/ui/FeedList'
 
 export const FeedScreen = () => {
-  const windowHeight = Dimensions.get('window').height
+	const insets = useSafeAreaInsets()
 
 	return (
-		<KeyboardAvoidingView style={{ maxHeight: windowHeight }} behavior="padding">
+		<View style={{
+			paddingTop: insets.top,
+			paddingBottom: insets.bottom,
+
+			position: 'relative',
+			flex: 1,
+			justifyContent: 'space-between',
+			alignItems: 'center',
+		}}>
 			<FeedList />
-		</KeyboardAvoidingView>
+		</View>
 	)
 }
