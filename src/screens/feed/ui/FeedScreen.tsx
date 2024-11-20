@@ -11,6 +11,7 @@ export const FeedScreen = () => {
 			paddingTop: insets.top,
 			paddingBottom: insets.bottom,
 
+			backgroundColor: '#fff',
 			position: 'relative',
 			flex: 1,
 			justifyContent: 'space-between',
