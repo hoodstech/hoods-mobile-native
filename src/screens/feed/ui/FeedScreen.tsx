@@ -5,7 +5,7 @@ import { FeedList } from '~/widgets/feed-list/ui/FeedList'
 
 export const FeedScreen = () => {
 	const insets = useSafeAreaInsets()
-
+	// TODO: вынести в обертки
 	return (
 		<View style={{
 			paddingTop: insets.top,

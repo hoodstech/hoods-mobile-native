@@ -4,7 +4,6 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Swiper, type SwiperCardRefType } from 'rn-swiper-list'
 
 import { GOODS_MOCKS } from '../../model'
-import { ActionButton } from '../ActionButton'
 
 import { Good } from '~/entities/goods/model'
 import CartLogo from '~/shared/icons/cart.svg'
@@ -12,13 +11,14 @@ import ReturnArrowLogo from '~/shared/icons/return-arrow.svg'
 import CloseLogo from '~/shared/icons/close.svg'
 import HeartLogo from '~/shared/icons/heart.svg'
 import StarOutlineLogo from '~/shared/icons/star-outline.svg'
-import { CustomText } from '~/shared/ui'
+import { CustomText, ActionButton } from '~/shared/ui'
 import { SizesPanel } from '~/entities/goods/ui'
+import { GoodDetailsButton } from '~/widgets/good-details-button/ui'
 
 export const FeedList = () => {
   const ref = useRef<SwiperCardRefType>()
 
-  // TODO: разбить по компонентам - кнопка и карточка в виджеты, выделить стили
+  // TODO: разбить по компонентам - кнопка в виджеты, карточка в фичи, лента в фичи aswell выделить стили
   const renderCard = useCallback(
     (good: Good) => {
       return (
@@ -36,16 +36,7 @@ export const FeedList = () => {
           <View style={{ width: '100%', paddingTop: 12, paddingLeft: 24, paddingRight: 24 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent:'space-between' }}>
               <CustomText variant="h2">{good.title}</CustomText>
-              <ActionButton onPress={() => console.log('123123123')} style={{ flexDirection: 'row', columnGap: 8 }}>
-                <CustomText variant="paragraphSmallBold">
-                  Подробнее
-                </CustomText>
-                <View style={{ justifyContent: 'center', alignItems: 'center', width: 18, height: 18, borderRadius: '50%', backgroundColor: '#0F0F14' }}>
-                  <CustomText variant="paragraphSmallBold" style={{ color: '#fff', fontSize: 12 }}>
-                    ↑
-                  </CustomText>
-                </View>
-              </ActionButton>
+              <GoodDetailsButton goodItem={good} />
             </View>
             <CustomText variant='paragraphSmallBold'>
               {good.price / 100} руб.

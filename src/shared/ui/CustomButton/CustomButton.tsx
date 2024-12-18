@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Pressable, StyleSheet, Animated, PressableProps, ViewStyle, TextStyle } from 'react-native'
+
 import { CustomText } from '../CustomText/CustomText'
 
 type ButtonProps = PressableProps & {
@@ -21,7 +22,7 @@ export const Button: React.FC<ButtonProps> = ({ onPress, title, buttonStyle, tex
   }
 
   return (
-    <Animated.View style={[styles.animatedContainer, { transform: [{ scale }] }]}>
+    <Animated.View style={[styles.animatedContainer, { transform: [{ scale }]}]}>
       <Pressable
         style={[styles.defaultButton, buttonStyle]} 
         onPressIn={handlePressIn}
