@@ -75,7 +75,7 @@ export const SignUpScreen = () => {
           control={control}
           validateSchema={signUpSchema}
           style={styles.input}
-          renderElement={(props) => <Input placeholder="Имя пользователя" {...props} />}
+          renderElement={({ onChange, ...props }) => <Input placeholder="Имя пользователя" onChangeText={onChange} {...props} />}
         />
       </>
     ) : (
@@ -89,21 +89,21 @@ export const SignUpScreen = () => {
             control={control}
             validateSchema={signUpSchema}
             style={styles.lastInput}
-            renderElement={(props) => <Input placeholder="Эл. почта" {...props} />}
+            renderElement={({ onChange, ...props }) => <Input placeholder="Эл. почта" onChangeText={onChange} {...props} />}
           />
           <FormElement
             name="password"
             control={control}
             validateSchema={signUpSchema}
             style={styles.lastInput}
-            renderElement={(props) => <Input placeholder="Придумайте пароль" secureTextEntry {...props} />}
+            renderElement={({ onChange, ...props }) => <Input placeholder="Придумайте пароль" onChangeText={onChange} secureTextEntry {...props} />}
           />
           <FormElement
             name="password"
             control={control}
             validateSchema={signUpSchema}
             style={styles.lastInput} 
-            renderElement={(props) => <Input placeholder="Подтвердите пароль" secureTextEntry {...props} />}
+            renderElement={({ onChange, ...props }) => <Input placeholder="Подтвердите пароль" onChangeText={onChange} secureTextEntry {...props} />}
           />
         </View>
       </>
