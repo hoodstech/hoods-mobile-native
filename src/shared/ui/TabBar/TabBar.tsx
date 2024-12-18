@@ -76,8 +76,8 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
             break
           case 'feed':
             IconComponent = isFocused 
-            ? <GhostIcon width={24} height={24} fill={index === 0 ? '#000' : '#fff'} />
-            : <GhostSleeping width={24} height={24} fill="#000" />
+            ? <GhostIcon width={24} height={24} />
+            : <GhostSleeping width={24} height={24} />
             break
           case 'profile':
             IconComponent = isFocused 

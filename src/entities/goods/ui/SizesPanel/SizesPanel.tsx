@@ -23,18 +23,21 @@ export const SizesPanel: React.FC<SizesPanelProps> = ({ sizes, variant = 'row', 
         <CustomText variant="paragraphSmallBold">
           Размер
         </CustomText>
-        {sizes.map((size, index) => (
-          <View
-            key={index}
-            style={[
-              styles.sizeItem,
-              !size.isAvailable && styles.disabled,
-          ]}>
-            <CustomText variant="paragraphSmallBold" style={styles.sizeText}>
-              {size.name}
-            </CustomText>
-          </View>
-        ))}
+        <View style={styles.sizesContainer}>
+          {sizes.map((size, index) => (
+            <View
+              key={index}
+              style={[
+                styles.sizeItem,
+                !size.isAvailable && styles.disabled,
+            ]}>
+              <CustomText variant="paragraphSmallBold" style={styles.sizeText}>
+                {size.name}
+              </CustomText>
+            </View>
+          ))}
+        </View>
+        
       </>
       ) : (
         <CustomText variant="paragraphSmallBold">
@@ -49,13 +52,18 @@ const styles = StyleSheet.create({
   container: {
     columnGap: 10,
     rowGap: 8,
-    alignItems: 'center',
   },
   colContainer: {
     flexDirection: 'column',
   },
   rowContainer: {
+    alignItems: 'center',
     flexDirection: 'row',
+  },
+  sizesContainer: {
+    flexDirection: 'row',
+    columnGap: 10,
+    rowGap: 8,
   },
   sizeItem: {
     height: 18,
