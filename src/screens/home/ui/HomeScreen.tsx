@@ -1,9 +1,11 @@
-import { GestureResponderEvent, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { GestureResponderEvent, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { useLinkTo } from '@react-navigation/native'
 
 import FilterArrows from '../../../shared/icons/filter-arrows.svg'
 import SettingsIcon from '../../../shared/icons/settings-filter.svg'
 
+import { GOODS_MOCKS } from '~/widgets/feed-list/model'
+import { GoodsCardGrid } from '~/screens/feed/ui/itemCard/itemCard'
 import { CustomText } from '~/shared/ui'
 
 export const HomeScreen = () => {
@@ -19,6 +21,7 @@ export const HomeScreen = () => {
 	}
 
 	return (
+		<>
 		<View style={styles.container}>
 				<CustomText variant="h1">Избранное</CustomText>
 				<CustomText style={styles.products_count}>4 товара</CustomText>
@@ -31,16 +34,27 @@ export const HomeScreen = () => {
 			</TouchableOpacity>
 				<CustomText variant="h2" style={styles.text}>Тип одежды</CustomText>
 			</View>
+			<ScrollView contentContainerStyle={styles.scrollContent}>
+			<View style={styles.items}>
+				<GoodsCardGrid goods={GOODS_MOCKS} />
+			</View>
+			</ScrollView>
 		</View>
+		</>
 	)
 }
 
 const styles = StyleSheet.create({
 	container:
 	{
-		paddingLeft: 24,
+		flex: 1,
+		paddingLeft: 32,
 		paddingTop: 10,
+		backgroundColor: 'white',
 	},
+	scrollContent: {
+		paddingTop: 10,
+	  },
 	products_count:
 	{
 		height: 16,
@@ -63,5 +77,8 @@ const styles = StyleSheet.create({
 		marginLeft: 4,
 		fontFamily: 'Manrope_300Light',
 		fontSize: 15,
+	  },
+	  items: {
+		paddingTop: 12,
 	  },
 })
