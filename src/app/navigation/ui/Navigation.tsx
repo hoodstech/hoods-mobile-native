@@ -13,17 +13,23 @@ export const Navigation = () => {
       <Tab.Screen
         name="home"
         component={HomeScreen}
-        options={{ tabBarLabel: '' }} 
+        options={{ tabBarLabel: '',
+          headerShown: false,
+         }} 
       />
       <Tab.Screen
         name="feed"
         component={FeedScreen}
-        options={{ tabBarLabel: '' }} 
+        options={{ tabBarLabel: '',
+          headerShown: false,
+         }} 
       />
       <Tab.Screen
         name="profile"
         component={ProfileScreen}
-        options={{ tabBarLabel: '' }} 
+        options={{ tabBarLabel: '',
+          headerShown: false,
+         }} 
       />
     </Tab.Navigator>
   )

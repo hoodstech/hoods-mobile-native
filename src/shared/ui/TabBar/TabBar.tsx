@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { View, Platform, Pressable, Animated, StyleSheet } from 'react-native'
 import { useLinkTo } from '@react-navigation/native'
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
@@ -11,8 +11,9 @@ import ProfileIcon from '../../icons/community.svg'
 import ProfileBlack from '../../icons/community-black.svg'
 
 export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
-  const linkTo = useLinkTo()
-  const animatedValue = useRef(new Animated.Value(state.index)).current
+  const linkTo = useLinkTo();
+  const animatedValue = useMemo(() => new Animated.Value(state.index), []);
+
 
   useEffect(() => {
     Animated.timing(animatedValue, {
@@ -20,6 +21,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
       duration: 300,
       useNativeDriver: false,
     }).start()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.index])
 
   const tabWidth = 327 / state.routes.length
@@ -128,6 +130,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 15,
+    height: 34,
+    width: 103,
   },
   iconContainer: {
     paddingTop: 2, 
