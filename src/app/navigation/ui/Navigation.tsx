@@ -31,7 +31,7 @@ export const TabNavigator = () => (
     <Tab.Screen
       name={AppNavigationScreen.Home}
       component={HomeScreen}
-      options={{ tabBarLabel: '' }} 
+      options={{ tabBarLabel: '', headerShown: false }} 
     />
     <Tab.Screen
       name={AppNavigationScreen.Feed}
@@ -41,7 +41,7 @@ export const TabNavigator = () => (
     <Tab.Screen
       name={AppNavigationScreen.Profile}
       component={ProfileScreen}
-      options={{ tabBarLabel: '' }} 
+      options={{ tabBarLabel: '', headerShown: false }} 
     />
   </Tab.Navigator>
 )

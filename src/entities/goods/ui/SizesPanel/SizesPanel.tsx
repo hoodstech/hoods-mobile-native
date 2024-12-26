@@ -18,7 +18,7 @@ export const SizesPanel: React.FC<SizesPanelProps> = ({ sizes, variant = 'row', 
       rest.style,
       ]}
     >
-    {sizes.length ? (
+    {sizes?.length ? (
       <>
         <CustomText variant="paragraphSmallBold">
           Размер
