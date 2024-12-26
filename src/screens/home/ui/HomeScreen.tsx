@@ -9,7 +9,6 @@ import { GoodsCardGrid } from '~/screens/feed/ui/itemCard/itemCard'
 import { CustomText } from '~/shared/ui'
 
 export const HomeScreen = () => {
-
 	const linkTo = useLinkTo()
 
 	function handleOpenSortSheet(event: GestureResponderEvent): void {
@@ -21,7 +20,6 @@ export const HomeScreen = () => {
 	}
 
 	return (
-		<>
 		<View style={styles.container}>
 				<CustomText variant="h1">Избранное</CustomText>
 				<CustomText style={styles.products_count}>4 товара</CustomText>
@@ -40,7 +38,6 @@ export const HomeScreen = () => {
 			</View>
 			</ScrollView>
 		</View>
-		</>
 	)
 }
 

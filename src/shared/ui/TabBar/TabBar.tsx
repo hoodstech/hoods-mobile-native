@@ -3,12 +3,12 @@ import { View, Platform, Pressable, Animated, StyleSheet } from 'react-native'
 import { useLinkTo } from '@react-navigation/native'
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
 
-import StarIconFill from '../../icons/star-fill.svg'
-import StarIconOutlined from '../../icons/star-black.svg'
-import GhostIcon from '../../icons/ghost.svg'
-import GhostSleeping from '../../icons/ghost-sleeping.svg'
-import ProfileIcon from '../../icons/community.svg'
-import ProfileBlack from '../../icons/community-black.svg'
+import StarIconFill from '~/shared/icons/star-fill.svg'
+import StarIconOutlined from '~/shared/icons/star-black.svg'
+import GhostIcon from '~/shared/icons/ghost.svg'
+import GhostSleeping from '~/shared/icons/ghost-sleeping.svg'
+import ProfileIcon from '~/shared/icons/community.svg'
+import ProfileBlack from '~/shared/icons/community-black.svg'
 
 export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const linkTo = useLinkTo()
@@ -78,8 +78,8 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
             break
           case 'feed':
             IconComponent = isFocused 
-            ? <GhostIcon width={24} height={24} fill={index === 0 ? '#000' : '#fff'} />
-            : <GhostSleeping width={24} height={24} fill="#000" />
+            ? <GhostIcon width={24} height={24} />
+            : <GhostSleeping width={24} height={24} />
             break
           case 'profile':
             IconComponent = isFocused 
@@ -95,7 +95,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
             key={route.key}
             accessibilityState={isFocused ? { selected: true } : {}}
             accessibilityLabel={options.tabBarAccessibilityLabel}
-            testID={options.tabBarTestID}
+            testID="tabbarTestId"
             onPress={onPress}
             onLongPress={onLongPress}
             style={styles.tabbarItem}

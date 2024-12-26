@@ -1,24 +1,31 @@
 import React, { useCallback, useRef } from 'react'
-import { Dimensions, Image, StyleSheet, View } from 'react-native'
+import { Image, StyleSheet, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { AntDesign } from '@expo/vector-icons'
 import { Swiper, type SwiperCardRefType } from 'rn-swiper-list'
 
-import type { Good } from '../../model'
 import { GOODS_MOCKS } from '../../model'
-import { ActionButton } from '../ActionButton'
 
-import AppleLogo from '~/shared/icons/apple.svg'
+import { Good } from '~/entities/goods/model'
+import CartLogo from '~/shared/icons/cart.svg'
+import ReturnArrowLogo from '~/shared/icons/return-arrow.svg'
+import CloseLogo from '~/shared/icons/close.svg'
+import HeartLogo from '~/shared/icons/heart.svg'
+import StarOutlineLogo from '~/shared/icons/star-outline.svg'
+import { CustomText, ActionButton } from '~/shared/ui'
+import { SizesPanel } from '~/entities/goods/ui'
+import { GoodDetailsButton } from '~/widgets/good-details-button/ui'
 
 export const FeedList = () => {
   const ref = useRef<SwiperCardRefType>()
 
-  const windowHeight = Dimensions.get('window').height
-
+  // TODO: разбить по компонентам - кнопка в виджеты, карточка в фичи, лента в фичи aswell выделить стили
   const renderCard = useCallback(
     (good: Good) => {
       return (
-        <View style={styles.renderCardContainer}>
+        <View style={{
+          ...styles.renderCardContainer,
+          backgroundColor: '#fff',
+        }}>
           <Image
             source={{
               uri: good.profileImg,
@@ -26,6 +33,16 @@ export const FeedList = () => {
             style={styles.renderCardImage}
             resizeMode="cover"
           />
+          <View style={{ width: '100%', paddingTop: 12, paddingLeft: 24, paddingRight: 24 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent:'space-between' }}>
+              <CustomText variant="h2">{good.title}</CustomText>
+              <GoodDetailsButton goodItem={good} />
+            </View>
+            <CustomText variant='paragraphSmallBold'>
+              {good.price / 100} руб.
+            </CustomText>
+            <SizesPanel sizes={good.sizes} style={{ marginTop: 12 }} />
+          </View>
         </View>
       )
     },
@@ -33,8 +50,8 @@ export const FeedList = () => {
   )
 
   return (
-    <GestureHandlerRootView style={[styles.container, { height: windowHeight }]}>
-      <View style={[styles.subContainer, { height: windowHeight }]}>
+    <GestureHandlerRootView style={styles.container}>
+      <View style={styles.subContainer}>
         <Swiper<Good>
           ref={ref}
           cardStyle={styles.cardStyle}
@@ -66,39 +83,47 @@ export const FeedList = () => {
           }}
         />
       </View>
-
       <View style={styles.buttonsContainer}>
         <ActionButton
-          style={styles.button}
-          onPress={() => {
-            ref.current?.swipeLeft()
-          }}
-        >
-          <AppleLogo />
-        </ActionButton>
-        <ActionButton
-          style={styles.button}
+          style={[styles.button, styles.buttonOutline, styles.buttonGhost]}
           onTap={() => {
             ref.current?.swipeBack()
           }}
         >
-          <AntDesign name="reload1" size={32} color="white" />
+          <ReturnArrowLogo width={24} height={24} style={{ color: '#0F0F14' }} />
         </ActionButton>
         <ActionButton
-          style={styles.button}
-          onTap={() => {
+          style={[styles.button, styles.buttonOutline]}
+          onPress={() => {
+            ref.current?.swipeLeft()
+          }}
+        >
+          <CloseLogo width={24} height={24} style={{ color: '#0F0F14' }} />
+        </ActionButton>
+        <ActionButton
+          style={[styles.button, styles.buttonPrimary]}
+          onPress={() => {
             ref.current?.swipeTop()
           }}
         >
-          <AntDesign name="arrowup" size={32} color="white" />
+          <CartLogo width={32} height={32} style={{ color: '#0F0F14' }} />
         </ActionButton>
         <ActionButton
-          style={styles.button}
+          style={[styles.button, styles.buttonOutline]}
           onTap={() => {
             ref.current?.swipeRight()
           }}
         >
-          <AntDesign name="heart" size={32} color="white" />
+          <HeartLogo width={24} height={24} style={{ color: '#0F0F14' }} />
+        </ActionButton>
+        <ActionButton
+          style={[styles.button, styles.buttonOutline, styles.buttonGhost]}
+          onTap={() => {
+            // TODO: link goto
+            ref.current?.swipeRight()
+          }}
+        >
+          <StarOutlineLogo width={24} height={24} style={{ color: '#0F0F14' }} />
         </ActionButton>
       </View>
     </GestureHandlerRootView>
@@ -107,32 +132,41 @@ export const FeedList = () => {
 
 const styles = StyleSheet.create({
   container: {
+    overflow: 'hidden',
     position: 'absolute',
     top: 0,
-    bottom: 0,
+    bottom: 55,
     left: 0,
     right: 0,
+    backgroundColor: '#fff',
   },
   buttonsContainer: {
+    height: 100,
     flexDirection: 'row',
-    bottom: 100,
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    columnGap: 24,
+  },
+  buttonPrimary: {
+    backgroundColor: '#AC95D2',
+    height: 70,
+    width: 70,
+  },
+  buttonGhost: {
+    width: 25,
+    height: 25,
+    borderWidth: 0,
+  },
+  buttonOutline: {
+    height: 60,
+    width: 60,
+    borderColor: '#AC95D2',
+    borderWidth: 1,
   },
   button: {
-    height: 80,
-    borderRadius: 40,
-    aspectRatio: 1,
-    backgroundColor: '#3A3D45',
-    elevation: 4,
+    borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: 'black',
-    shadowOpacity: 0.1,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
   },
   buttonText: {
     fontSize: 20,
@@ -140,18 +174,17 @@ const styles = StyleSheet.create({
   },
   cardStyle: {
     width: '100%',
-    height: '80%',
+    height: '100%',
+    bottom: 0,
     borderRadius: 15,
-    marginVertical: 20,
   },
   renderCardContainer: {
     flex: 1,
     borderRadius: 15,
-    height: '80%',
     width: '100%',
   },
   renderCardImage: {
-    height: '100%',
+    height: '84%',
     width: '100%',
     borderRadius: 15,
   },
