@@ -3,7 +3,6 @@ import { StyleSheet, View, Image, FlatList } from 'react-native'
 
 import StarIcon from '~/shared/icons/starpurple.svg'
 import Cart from '~/shared/icons/cart.svg'
-
 import { CustomText } from '~/shared/ui'
 
 import type { Good } from 'src/widgets/feed-list/model/types.ts'

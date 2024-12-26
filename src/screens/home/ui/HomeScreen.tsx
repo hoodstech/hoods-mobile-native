@@ -3,7 +3,6 @@ import { useLinkTo } from '@react-navigation/native'
 
 import FilterArrows from '~/shared/icons/filter-arrows.svg'
 import SettingsIcon from '~/shared/icons/settings-filter.svg'
-
 import { GOODS_MOCKS } from '~/widgets/feed-list/model'
 import { GoodsCardGrid } from '~/screens/feed/ui/itemCard/itemCard'
 import { CustomText } from '~/shared/ui'
