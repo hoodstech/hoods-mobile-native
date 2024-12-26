@@ -11,8 +11,9 @@ import ProfileIcon from '~/shared/icons/community.svg'
 import ProfileBlack from '~/shared/icons/community-black.svg'
 
 export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
-  const linkTo = useLinkTo()
-  const animatedValue = useRef(new Animated.Value(state.index)).current;
+  const linkTo = useLinkTo();
+  const animatedValueRef = useRef(new Animated.Value(state.index));
+  const animatedValue = animatedValueRef.current;
 
 useEffect(() => {
   Animated.timing(animatedValue, {
@@ -20,10 +21,9 @@ useEffect(() => {
     duration: 300,
     useNativeDriver: false,
   }).start();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [state.index]);
+}, [animatedValue, state.index]);
 
-  const tabWidth = 327 / state.routes.length
+  const tabWidth = 327 / state.routes.length;
 
   return (
     <View style={styles.tabbar}>
