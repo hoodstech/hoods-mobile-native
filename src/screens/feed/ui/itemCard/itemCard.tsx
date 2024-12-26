@@ -1,8 +1,8 @@
 import React from 'react'
 import { StyleSheet, View, Image, FlatList } from 'react-native'
 
-import StarIcon from '../../../../shared/icons/starpurple.svg'
-import Cart from '../../../../shared/icons/cart.svg'
+import StarIcon from '~/shared/icons/starpurple.svg'
+import Cart from '~/shared/icons/cart.svg'
 
 import { CustomText } from '~/shared/ui'
 
