@@ -11,19 +11,19 @@ import ProfileIcon from '~/shared/icons/community.svg'
 import ProfileBlack from '~/shared/icons/community-black.svg'
 
 export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
-  const linkTo = useLinkTo();
-  const animatedValueRef = useRef(new Animated.Value(state.index));
-  const animatedValue = animatedValueRef.current;
+  const linkTo = useLinkTo()
+  const animatedValueRef = useRef(new Animated.Value(state.index))
+  const animatedValue = animatedValueRef.current
 
 useEffect(() => {
   Animated.timing(animatedValue, {
     toValue: state.index,
     duration: 300,
     useNativeDriver: false,
-  }).start();
-}, [animatedValue, state.index]);
+  }).start()
+}, [animatedValue, state.index])
 
-  const tabWidth = 327 / state.routes.length;
+  const tabWidth = 327 / state.routes.length
 
   return (
     <View style={styles.tabbar}>
