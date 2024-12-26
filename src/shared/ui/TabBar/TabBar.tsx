@@ -12,7 +12,7 @@ import ProfileBlack from '~/shared/icons/community-black.svg'
 
 export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const linkTo = useLinkTo()
-  const animatedValue = useRef(new Animated.Value(state.index)).current;
+  const animatedValue = useRef(new Animated.Value(state.index)).current
 
 
   useEffect(() => {
