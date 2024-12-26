@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { View, Platform, Pressable, Animated, StyleSheet } from 'react-native'
 import { useLinkTo } from '@react-navigation/native'
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
@@ -12,8 +12,7 @@ import ProfileBlack from '~/shared/icons/community-black.svg'
 
 export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const linkTo = useLinkTo()
-  const animatedValue = useMemo(() => new Animated.Value(state.index), [state.index])
-
+  const animatedValue = useRef(new Animated.Value(state.index)).current;
 
 
   useEffect(() => {
