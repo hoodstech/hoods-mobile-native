@@ -12,16 +12,16 @@ import ProfileBlack from '~/shared/icons/community-black.svg'
 
 export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const linkTo = useLinkTo()
-  const animatedValue = useRef(new Animated.Value(state.index)).current
+  const animatedValue = useRef(new Animated.Value(state.index)).current;
 
-
-  useEffect(() => {
-    Animated.timing(animatedValue, {
-      toValue: state.index,
-      duration: 300,
-      useNativeDriver: false,
-    }).start()
-  }, [state.index])
+useEffect(() => {
+  Animated.timing(animatedValue, {
+    toValue: state.index,
+    duration: 300,
+    useNativeDriver: false,
+  }).start();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [state.index]);
 
   const tabWidth = 327 / state.routes.length
 
