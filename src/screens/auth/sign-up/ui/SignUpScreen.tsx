@@ -6,7 +6,7 @@ import * as yup from 'yup'
 import { useNavigation, type NavigationProp } from '@react-navigation/native'
 import { useMutation } from '@tanstack/react-query'
 
-import { Button, FormElement, Input } from '~/shared/ui'
+import { Button } from '~/shared/ui'
 import { AppNavigationScreen } from '~/shared/config/navigation'
 
 // TODO: Обновить стили, поправить работу экрана
@@ -44,7 +44,6 @@ export const SignUpScreen = () => {
   })
 
   const {
-    control,
     handleSubmit,
     formState: { isValid },
   } = useForm<TSignUpFormData>({
@@ -70,7 +69,7 @@ export const SignUpScreen = () => {
           <Text style={[styles.subText, isDarkTheme && styles.darkText]}>
             Введите имя пользователя для своего аккаунта. Вы всегда можете изменить его
           </Text>
-          <FormElement
+          {/* <FormElement
             name="name"
             control={control}
             validateSchema={signUpSchema}
@@ -80,7 +79,7 @@ export const SignUpScreen = () => {
               onChangeText={onChange}
               {...props}
             />}
-          />
+          /> */}
         </>
       ) : (
         <>
@@ -88,7 +87,7 @@ export const SignUpScreen = () => {
             Введите свой            эл.адрес и придумайте пароль
           </Text>
           <View style={styles.formGroup}>
-            <FormElement
+            {/* <FormElement
               name="email"
               control={control}
               validateSchema={signUpSchema}
@@ -98,8 +97,8 @@ export const SignUpScreen = () => {
                 onChangeText={onChange}
                 {...props}
               />}
-            />
-            <FormElement
+            /> */}
+            {/* <FormElement
               name="password"
               control={control}
               validateSchema={signUpSchema}
@@ -111,8 +110,8 @@ export const SignUpScreen = () => {
                   secureTextEntry
                   {...props} />
               }}
-            />
-            <FormElement
+            /> */}
+            {/* <FormElement
               name="password"
               control={control}
               validateSchema={signUpSchema}
@@ -124,7 +123,7 @@ export const SignUpScreen = () => {
                   secureTextEntry
                   {...props} />
               }}
-            />
+            /> */}
           </View>
         </>
       )}
