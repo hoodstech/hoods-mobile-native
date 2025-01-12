@@ -1,10 +1,11 @@
 import type { SizeItem } from './sizes'
 
-export interface Good {
+export interface Item {
   id: number
   profileImg: string
   title: string
   description: string
-  sizes: SizeItem[]
+  characteristics?: string[]
+  sizes?: SizeItem[]
   price: number
 }

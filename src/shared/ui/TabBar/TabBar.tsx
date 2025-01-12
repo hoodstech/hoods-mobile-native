@@ -15,13 +15,13 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const animatedValueRef = useRef(new Animated.Value(state.index))
   const animatedValue = animatedValueRef.current
 
-useEffect(() => {
-  Animated.timing(animatedValue, {
-    toValue: state.index,
-    duration: 300,
-    useNativeDriver: false,
-  }).start()
-}, [animatedValue, state.index])
+  useEffect(() => {
+    Animated.timing(animatedValue, {
+      toValue: state.index,
+      duration: 300,
+      useNativeDriver: false,
+    }).start()
+  }, [state.index, animatedValue])
 
   const tabWidth = 327 / state.routes.length
 
@@ -72,18 +72,34 @@ useEffect(() => {
         switch (route.name) {
           case 'home':
             IconComponent = isFocused 
-              ? <StarIconOutlined width={24} height={24} fill={index === 0 ? '#000' : '#fff'} />
-              : <StarIconFill width={24} height={24} fill="#000" />
+              ? <StarIconOutlined
+                width={24}
+                height={24}
+                fill={index === 0 ? '#000' : '#fff'}
+              />
+              : <StarIconFill
+                width={24}
+                height={24}
+                fill="#000"
+              />
             break
           case 'feed':
             IconComponent = isFocused 
-            ? <GhostIcon width={24} height={24} />
-            : <GhostSleeping width={24} height={24} />
+              ? <GhostIcon width={24} height={24} />
+              : <GhostSleeping width={24} height={24} />
             break
           case 'profile':
             IconComponent = isFocused 
-              ? <ProfileBlack width={24} height={24} fill={index === 0 ? '#000' : '#fff'} />
-              : <ProfileIcon width={24} height={24} fill="#000" />
+              ? <ProfileBlack
+                width={24}
+                height={24}
+                fill={index === 0 ? '#000' : '#fff'}
+              />
+              : <ProfileIcon
+                width={24}
+                height={24}
+                fill="#000"
+              />
             break
           default:
             IconComponent = null

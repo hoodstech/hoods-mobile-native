@@ -2,48 +2,50 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import type { ViewProps } from 'react-native'
 
-import type { SizeItem } from '~/entities/goods/model'
+import type { SizeItem } from '~/entities/items/model'
 import { CustomText } from '~/shared/ui'
 
 interface SizesPanelProps extends ViewProps {
-  sizes: SizeItem[]
+  sizes?: SizeItem[]
   variant?: 'column' | 'row'
 }
 
 export const SizesPanel: React.FC<SizesPanelProps> = ({ sizes, variant = 'row', ...rest }) => {
   return (
-    <View style={[
-      styles.container,
-      variant === 'row' ? styles.rowContainer : styles.colContainer,
-      rest.style,
+    <View
+      style={[
+        styles.container,
+        variant === 'row' ? styles.rowContainer : styles.colContainer,
+        rest.style,
       ]}
     >
-    {sizes?.length ? (
-      <>
-        <CustomText variant="paragraphSmallBold">
-          Размер
-        </CustomText>
-        <View style={styles.sizesContainer}>
-          {sizes.map((size, index) => (
-            <View
-              key={index}
-              style={[
-                styles.sizeItem,
-                !size.isAvailable && styles.disabled,
-            ]}>
-              <CustomText variant="paragraphSmallBold" style={styles.sizeText}>
-                {size.name}
-              </CustomText>
-            </View>
-          ))}
-        </View>
-        
-      </>
+      {sizes?.length ? (
+        <>
+          <CustomText variant="paragraphSmallBold">
+            Размер
+          </CustomText>
+          <View style={styles.sizesContainer}>
+            {sizes.map((size, index) => (
+              <View
+                key={index}
+                style={[
+                  styles.sizeItem,
+                  !size.isAvailable && styles.disabled,
+                ]}
+              >
+                <CustomText variant="paragraphSmallBold" style={styles.sizeText}>
+                  {size.name}
+                </CustomText>
+              </View>
+            ))}
+          </View>
+
+        </>
       ) : (
         <CustomText variant="paragraphSmallBold">
           На данный момент подходящих размеров нет
         </CustomText>
-    )}
+      )}
     </View>
   )
 }

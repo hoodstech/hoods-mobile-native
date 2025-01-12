@@ -63,57 +63,79 @@ export const SignUpScreen = () => {
   return (
     <KeyboardAvoidingView behavior="padding" style={[styles.wrapper, isDarkTheme && styles.darkWrapper]}>
       {step === 1 ? (
-      <>
-        <Text style={[styles.headerText, isDarkTheme && styles.darkText]}>
-          Введите имя пользователя
-        </Text>
-        <Text style={[styles.subText, isDarkTheme && styles.darkText]}>
-          Введите имя пользователя для своего аккаунта. Вы всегда можете изменить его
-        </Text>
-        <FormElement
-          name="name"
-          control={control}
-          validateSchema={signUpSchema}
-          style={styles.input}
-          renderElement={({ onChange, ...props }) => <Input placeholder="Имя пользователя" onChangeText={onChange} {...props} />}
-        />
-      </>
-    ) : (
-      <>
-        <Text style={[styles.headerText, styles.headerTextStep2, isDarkTheme && styles.darkText]}>
-          Введите свой            эл.адрес и придумайте пароль
-        </Text>
-        <View style={styles.formGroup}>
+        <>
+          <Text style={[styles.headerText, isDarkTheme && styles.darkText]}>
+            Введите имя пользователя
+          </Text>
+          <Text style={[styles.subText, isDarkTheme && styles.darkText]}>
+            Введите имя пользователя для своего аккаунта. Вы всегда можете изменить его
+          </Text>
           <FormElement
-            name="email"
+            name="name"
             control={control}
             validateSchema={signUpSchema}
-            style={styles.lastInput}
-            renderElement={({ onChange, ...props }) => <Input placeholder="Эл. почта" onChangeText={onChange} {...props} />}
+            style={styles.input}
+            renderElement={({ onChange, ...props }) => <Input
+              placeholder="Имя пользователя"
+              onChangeText={onChange}
+              {...props}
+            />}
           />
-          <FormElement
-            name="password"
-            control={control}
-            validateSchema={signUpSchema}
-            style={styles.lastInput}
-            renderElement={({ onChange, ...props }) => <Input placeholder="Придумайте пароль" onChangeText={onChange} secureTextEntry {...props} />}
-          />
-          <FormElement
-            name="password"
-            control={control}
-            validateSchema={signUpSchema}
-            style={styles.lastInput} 
-            renderElement={({ onChange, ...props }) => <Input placeholder="Подтвердите пароль" onChangeText={onChange} secureTextEntry {...props} />}
-          />
-        </View>
-      </>
-    )}
+        </>
+      ) : (
+        <>
+          <Text style={[styles.headerText, styles.headerTextStep2, isDarkTheme && styles.darkText]}>
+            Введите свой            эл.адрес и придумайте пароль
+          </Text>
+          <View style={styles.formGroup}>
+            <FormElement
+              name="email"
+              control={control}
+              validateSchema={signUpSchema}
+              style={styles.lastInput}
+              renderElement={({ onChange, ...props }) => <Input
+                placeholder="Эл. почта"
+                onChangeText={onChange}
+                {...props}
+              />}
+            />
+            <FormElement
+              name="password"
+              control={control}
+              validateSchema={signUpSchema}
+              style={styles.lastInput}
+              renderElement={({ onChange, ...props }) => {
+                return <Input
+                  placeholder="Придумайте пароль"
+                  onChangeText={onChange}
+                  secureTextEntry
+                  {...props} />
+              }}
+            />
+            <FormElement
+              name="password"
+              control={control}
+              validateSchema={signUpSchema}
+              style={styles.lastInput} 
+              renderElement={({ onChange, ...props }) => {
+                return <Input
+                  placeholder="Подтвердите пароль"
+                  onChangeText={onChange}
+                  secureTextEntry
+                  {...props} />
+              }}
+            />
+          </View>
+        </>
+      )}
 
       <Button
         disabled={!isValid || isPending}
         title={step === 1 ? 'Далее' : 'Завершить регистрацию'}
         onPress={handlePressButton}
-        style={styles.button} isDarkTheme={false}/>
+        style={styles.button}
+        isDarkTheme={false}
+      />
     </KeyboardAvoidingView>
   )
 }

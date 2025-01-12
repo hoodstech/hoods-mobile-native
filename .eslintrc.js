@@ -6,7 +6,7 @@ module.exports = {
 		tsconfigRootDir: __dirname,
 		sourceType: 'module',
 	},
-	plugins: ['@typescript-eslint/eslint-plugin', 'import-newlines', 'import', '@stylistic'],
+	plugins: ['@typescript-eslint/eslint-plugin', 'import-newlines', 'import', '@stylistic', '@stylistic/jsx'],
 	extends: [
 		'expo',
 		'plugin:@typescript-eslint/recommended',
@@ -22,11 +22,18 @@ module.exports = {
 	},
 	ignorePatterns: ['.eslintrc.js', 'babel.config.js', 'metro.config.js'],
 	rules: {
+		'@stylistic/indent': ["error", 2],
 		'@stylistic/semi': ['error', 'never'],
 		'@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
 		'@stylistic/comma-dangle': ['error', 'always-multiline'],
 		'@stylistic/comma-spacing': ['error', { before: false, after: true }],
 		'@stylistic/object-curly-spacing': ["error", "always", { "objectsInObjects": false, "arraysInObjects": false }],
+		'@stylistic/jsx/jsx-max-props-per-line': [2, { "maximum": { "single": 2, "multi": 1 } }],
+		'@stylistic/jsx/jsx-one-expression-per-line': [2, { 'allow': 'single-child' }],
+		'@stylistic/jsx/jsx-first-prop-new-line': [2, 'multiline'],
+		// TODO: Подумать, как интегрировать с текущими отступами, конфликтует
+		// '@stylistic/jsx/jsx-closing-tag-location': [2, 'tag-aligned'],
+		// '@stylistic/jsx/jsx-closing-bracket-location': [2, 'tag-aligned'],
 		'import-newlines/enforce': ['error', { items: 7, 'max-len': 120 }],
 		'import/order': [
 			'error',
