@@ -1,1 +1,0 @@
-export { GoodDetailsButton } from './GoodDetailsButton'

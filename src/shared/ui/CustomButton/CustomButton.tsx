@@ -44,13 +44,13 @@ const styles = StyleSheet.create({
   },
   defaultButton: {
     backgroundColor: '#000',
-	width: 265,    
+    width: 265,    
     height: 43,              
     alignItems: 'center',
-	alignSelf: 'center',
+    alignSelf: 'center',
     justifyContent: 'center',
     borderRadius: 26,  
-	marginTop: 56,         
+    marginTop: 56,         
     paddingVertical: 10,
   },
   defaultText: {

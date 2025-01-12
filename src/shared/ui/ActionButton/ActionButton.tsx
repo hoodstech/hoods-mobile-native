@@ -9,7 +9,11 @@ type ActionButtonProps = TouchableOpacityProps & {
 export const ActionButton = memo(
   ({ onTap, style, children, ...rest }: ActionButtonProps) => {
     return (
-      <TouchableOpacity onPress={onTap} {...rest} style={style}>
+      <TouchableOpacity
+        onPress={onTap}
+        {...rest}
+        style={style}
+      >
         {children}
       </TouchableOpacity>
     )

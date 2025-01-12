@@ -1,61 +1,31 @@
-import React, { useCallback, useRef } from 'react'
-import { Image, StyleSheet, View } from 'react-native'
+import { useCallback, useRef } from 'react'
+import { StyleSheet, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Swiper, type SwiperCardRefType } from 'rn-swiper-list'
 
-import { GOODS_MOCKS } from '../../model'
+import { FeedListCard } from '../FeedListCard'
 
-import { Good } from '~/entities/goods/model'
+import type { Item } from '~/entities/items/model'
+import { ITEMS_MOCKS } from '~/entities/items/model'
 import CartLogo from '~/shared/icons/cart.svg'
 import ReturnArrowLogo from '~/shared/icons/return-arrow.svg'
 import CloseLogo from '~/shared/icons/close.svg'
 import HeartLogo from '~/shared/icons/heart.svg'
 import StarOutlineLogo from '~/shared/icons/star-outline.svg'
-import { CustomText, ActionButton } from '~/shared/ui'
-import { SizesPanel } from '~/entities/goods/ui'
-import { GoodDetailsButton } from '~/widgets/good-details-button/ui'
+import { ActionButton } from '~/shared/ui'
+
 
 export const FeedList = () => {
   const ref = useRef<SwiperCardRefType>()
-
-  // TODO: разбить по компонентам - кнопка в виджеты, карточка в фичи, лента в фичи aswell выделить стили
-  const renderCard = useCallback(
-    (good: Good) => {
-      return (
-        <View style={{
-          ...styles.renderCardContainer,
-          backgroundColor: '#fff',
-        }}>
-          <Image
-            source={{
-              uri: good.profileImg,
-            }}
-            style={styles.renderCardImage}
-            resizeMode="cover"
-          />
-          <View style={{ width: '100%', paddingTop: 12, paddingLeft: 24, paddingRight: 24 }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent:'space-between' }}>
-              <CustomText variant="h2">{good.title}</CustomText>
-              <GoodDetailsButton goodItem={good} />
-            </View>
-            <CustomText variant='paragraphSmallBold'>
-              {good.price / 100} руб.
-            </CustomText>
-            <SizesPanel sizes={good.sizes} style={{ marginTop: 12 }} />
-          </View>
-        </View>
-      )
-    },
-    [],
-  )
+  const renderCard = useCallback((item: Item) => <FeedListCard item={item} />, [])
 
   return (
     <GestureHandlerRootView style={styles.container}>
       <View style={styles.subContainer}>
-        <Swiper<Good>
+        <Swiper<Item>
           ref={ref}
           cardStyle={styles.cardStyle}
-          data={GOODS_MOCKS}
+          data={ITEMS_MOCKS}
           renderCard={renderCard}
           onIndexChange={(index) => {
             console.log('Current Active index', index)
@@ -90,7 +60,11 @@ export const FeedList = () => {
             ref.current?.swipeBack()
           }}
         >
-          <ReturnArrowLogo width={24} height={24} style={{ color: '#0F0F14' }} />
+          <ReturnArrowLogo
+            width={24}
+            height={24}
+            style={{ color: '#0F0F14' }}
+          />
         </ActionButton>
         <ActionButton
           style={[styles.button, styles.buttonOutline]}
@@ -98,7 +72,11 @@ export const FeedList = () => {
             ref.current?.swipeLeft()
           }}
         >
-          <CloseLogo width={24} height={24} style={{ color: '#0F0F14' }} />
+          <CloseLogo
+            width={24}
+            height={24}
+            style={{ color: '#0F0F14' }}
+          />
         </ActionButton>
         <ActionButton
           style={[styles.button, styles.buttonPrimary]}
@@ -106,7 +84,11 @@ export const FeedList = () => {
             ref.current?.swipeTop()
           }}
         >
-          <CartLogo width={32} height={32} style={{ color: '#0F0F14' }} />
+          <CartLogo
+            width={32}
+            height={32}
+            style={{ color: '#0F0F14' }}
+          />
         </ActionButton>
         <ActionButton
           style={[styles.button, styles.buttonOutline]}
@@ -114,7 +96,11 @@ export const FeedList = () => {
             ref.current?.swipeRight()
           }}
         >
-          <HeartLogo width={24} height={24} style={{ color: '#0F0F14' }} />
+          <HeartLogo
+            width={24}
+            height={24}
+            style={{ color: '#0F0F14' }}
+          />
         </ActionButton>
         <ActionButton
           style={[styles.button, styles.buttonOutline, styles.buttonGhost]}
@@ -123,7 +109,11 @@ export const FeedList = () => {
             ref.current?.swipeRight()
           }}
         >
-          <StarOutlineLogo width={24} height={24} style={{ color: '#0F0F14' }} />
+          <StarOutlineLogo
+            width={24}
+            height={24}
+            style={{ color: '#0F0F14' }}
+          />
         </ActionButton>
       </View>
     </GestureHandlerRootView>
@@ -176,16 +166,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     bottom: 0,
-    borderRadius: 15,
-  },
-  renderCardContainer: {
-    flex: 1,
-    borderRadius: 15,
-    width: '100%',
-  },
-  renderCardImage: {
-    height: '84%',
-    width: '100%',
     borderRadius: 15,
   },
   subContainer: {
