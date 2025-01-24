@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { View, Platform, Pressable, Animated, StyleSheet } from 'react-native'
 import { useLinkTo } from '@react-navigation/native'
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
@@ -9,24 +9,54 @@ import GhostIcon from '~/shared/icons/ghost.svg'
 import GhostSleeping from '~/shared/icons/ghost-sleeping.svg'
 import ProfileIcon from '~/shared/icons/community.svg'
 import ProfileBlack from '~/shared/icons/community-black.svg'
+import { getIsOpened, addListener, removeListener } from '~/shared/globals';
 
-export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
+export function TabBar({ state, descriptors, navigation, isHidden }: BottomTabBarProps & { isHidden: boolean }) {
   const linkTo = useLinkTo()
   const animatedValueRef = useRef(new Animated.Value(state.index))
   const animatedValue = animatedValueRef.current
+  const [isOpened, setLocalState] = useState(getIsOpened()) 
+
+  const tabBarPosition = useRef(new Animated.Value(0)).current 
 
   useEffect(() => {
     Animated.timing(animatedValue, {
       toValue: state.index,
-      duration: 300,
+      duration: 230,
       useNativeDriver: false,
     }).start()
   }, [state.index, animatedValue])
 
   const tabWidth = 327 / state.routes.length
 
+  /*useEffect(() => {
+    const listener = () => {
+      const isTabBarOpened = getIsOpened()
+      setLocalState(isTabBarOpened)
+
+      Animated.timing(tabBarPosition, {
+        toValue: isTabBarOpened ? 0 : 100, 
+        duration: 0,
+        useNativeDriver: true,
+      }).start()
+    }
+
+    addListener(listener)
+    return () => {
+      removeListener(listener)
+    }
+  }, [tabBarPosition])
+  */
+
   return (
-    <View style={styles.tabbar}>
+    <Animated.View
+      style={[
+        styles.tabbar,
+        {
+          transform: [{ translateY: tabBarPosition }],
+        },
+      ]}
+    >
       <Animated.View
         style={[
           styles.animatedIndicator,
@@ -119,7 +149,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
           </Pressable>
         )
       })}
-    </View>
+    </Animated.View>
   )
 }
 
@@ -139,6 +169,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 10 },
     shadowRadius: 10,
     shadowOpacity: 0.1,
+    zIndex: 1,
   },
   tabbarItem: {
     flex: 1,
