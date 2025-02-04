@@ -50,13 +50,14 @@ export function TabBar({ state, descriptors, navigation, isHidden }: BottomTabBa
 
   return (
     <Animated.View
-      style={[
-        styles.tabbar,
-        {
-          transform: [{ translateY: tabBarPosition }],
-        },
-      ]}
-    >
+        style={[
+          styles.tabbar,
+          {
+            display: isHidden ? 'none' : 'flex',
+            pointerEvents: isHidden ? 'none' : 'auto',
+          },
+        ]}
+      >
       <Animated.View
         style={[
           styles.animatedIndicator,

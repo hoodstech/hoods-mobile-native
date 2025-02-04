@@ -27,33 +27,45 @@ export const Navigation = () => (
   </NavigationStack.Navigator>
 )
 
-const TabBarVisibilityContext = createContext({ isSortOpen: false, setIsSortOpen: () => {} });
+const TabBarVisibilityContext = createContext<{ 
+  isSortOpen: boolean; 
+  setIsSortOpen: (value: boolean) => void;
+} | null>(null);
 
-export const useTabBarVisibility = () => useContext(TabBarVisibilityContext);
+export const useTabBarVisibility = () => {
+  const context = useContext(TabBarVisibilityContext);
+  if (!context) {
+    throw new Error("useTabBarVisibility must be used within a TabBarVisibilityProvider");
+  }
+  return context;
+};
 
 const TabNavigator = () => {
   const [isSortOpen, setIsSortOpen] = useState(false);
 
   return (
-    <Tab.Navigator 
-      tabBar={(props) => <TabBar {...props} isHidden={isSortOpen} />} 
-      initialRouteName={AppNavigationScreen.Feed}
-    >
-      <Tab.Screen
-        name={AppNavigationScreen.Home}
-        component={HomeScreen}
-        options={{ tabBarLabel: '', headerShown: false }} 
-      />
-      <Tab.Screen
-        name={AppNavigationScreen.Feed}
-        component={FeedScreen}
-        options={{ tabBarLabel: '', headerShown: false }} 
-      />
-      <Tab.Screen
-        name={AppNavigationScreen.Profile}
-        component={ProfileScreen}
-        options={{ tabBarLabel: '', headerShown: false }} 
-      />
-    </Tab.Navigator>
+    <TabBarVisibilityContext.Provider value={{ isSortOpen, setIsSortOpen }}>
+      <Tab.Navigator 
+        key={isSortOpen ? 'hidden-tab' : 'visible-tab'}
+        tabBar={(props) => <TabBar {...props} isHidden={isSortOpen} />} 
+        initialRouteName={AppNavigationScreen.Feed}
+      >
+        <Tab.Screen
+          name={AppNavigationScreen.Home}
+          component={HomeScreen}
+          options={{ tabBarLabel: '', headerShown: false }} 
+        />
+        <Tab.Screen
+          name={AppNavigationScreen.Feed}
+          component={FeedScreen}
+          options={{ tabBarLabel: '', headerShown: false }} 
+        />
+        <Tab.Screen
+          name={AppNavigationScreen.Profile}
+          component={ProfileScreen}
+          options={{ tabBarLabel: '', headerShown: false }} 
+        />
+      </Tab.Navigator>
+    </TabBarVisibilityContext.Provider>
   );
 };
