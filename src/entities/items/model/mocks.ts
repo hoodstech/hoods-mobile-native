@@ -5,6 +5,7 @@ export const ITEMS_MOCKS: Item[] = [
     id: 1,
     profileImg: 'https://m.media-amazon.com/images/I/71gEWlwpN9L._AC_SX569_.jpg',
     title: 'Худи 1',
+    type: "outwear",
     description: 'ПОЛОСА',
     price: 16_500_00,
   },
@@ -12,6 +13,7 @@ export const ITEMS_MOCKS: Item[] = [
     id: 1,
     profileImg: 'https://m.media-amazon.com/images/I/71gEWlwpN9L._AC_SX569_.jpg',
     title: 'Худи 2',
+    type: "Худи",
     description: '123123123',
     price: 16_500_00,
     characteristics: [
@@ -41,6 +43,7 @@ export const ITEMS_MOCKS: Item[] = [
     id: 2,
     profileImg: 'https://m.media-amazon.com/images/I/71gEWlwpN9L._AC_SX569_.jpg',
     title: 'Худи 3',
+    type: "outwear",
     description: '123123123',
     price: 16_500_00,
     characteristics: [
@@ -70,6 +73,7 @@ export const ITEMS_MOCKS: Item[] = [
     id: 1,
     profileImg: 'https://m.media-amazon.com/images/I/71gEWlwpN9L._AC_SX569_.jpg',
     title: 'Худи 4',
+    type: "outwear",
     description: '123123123',
     price: 16_500_00,
     characteristics: [
@@ -99,6 +103,7 @@ export const ITEMS_MOCKS: Item[] = [
     id: 1,
     profileImg: 'https://m.media-amazon.com/images/I/71gEWlwpN9L._AC_SX569_.jpg',
     title: 'Худи 5',
+    type: "outwear",
     description: '123123123',
     price: 16_500_00,
     characteristics: [
@@ -128,6 +133,7 @@ export const ITEMS_MOCKS: Item[] = [
     id: 1,
     profileImg: 'https://m.media-amazon.com/images/I/71gEWlwpN9L._AC_SX569_.jpg',
     title: 'Худи 1',
+    type: "outwear",
     description: 'ПОЛОСА',
     price: 16_500_00,
     characteristics: [
@@ -157,6 +163,7 @@ export const ITEMS_MOCKS: Item[] = [
     id: 1,
     profileImg: 'https://m.media-amazon.com/images/I/71gEWlwpN9L._AC_SX569_.jpg',
     title: 'Худи 2',
+    type: "underwear",
     description: '123123123',
     price: 7_000_00,
     characteristics: [
@@ -186,6 +193,7 @@ export const ITEMS_MOCKS: Item[] = [
     id: 3,
     profileImg: 'https://m.media-amazon.com/images/I/71gEWlwpN9L._AC_SX569_.jpg',
     title: 'Худи 3',
+    type: "headwear",
     description: '123123123',
     price: 8_000_00,
     characteristics: [
@@ -215,6 +223,7 @@ export const ITEMS_MOCKS: Item[] = [
     id: 4,
     profileImg: 'https://m.media-amazon.com/images/I/71gEWlwpN9L._AC_SX569_.jpg',
     title: 'Худи 4',
+    type: "accessories",
     description: '123123123',
     price: 7_000_00,
     characteristics: [
@@ -244,6 +253,7 @@ export const ITEMS_MOCKS: Item[] = [
     id: 5,
     profileImg: 'https://m.media-amazon.com/images/I/71gEWlwpN9L._AC_SX569_.jpg',
     title: 'Худи 5',
+    type: "shoes",
     price: 7_500_00,
     description: '123123123',
     sizes: [],
