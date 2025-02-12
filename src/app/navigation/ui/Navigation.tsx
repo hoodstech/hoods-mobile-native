@@ -32,14 +32,6 @@ const TabBarVisibilityContext = createContext<{
   setIsSortOpen: (value: boolean) => void;
 } | null>(null);
 
-export const useTabBarVisibility = () => {
-  const context = useContext(TabBarVisibilityContext);
-  if (!context) {
-    throw new Error("useTabBarVisibility must be used within a TabBarVisibilityProvider");
-  }
-  return context;
-};
-
 const TabNavigator = () => {
   const [isSortOpen, setIsSortOpen] = useState(false);
 

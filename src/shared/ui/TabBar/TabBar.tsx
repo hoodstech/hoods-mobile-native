@@ -9,13 +9,11 @@ import GhostIcon from '~/shared/icons/ghost.svg'
 import GhostSleeping from '~/shared/icons/ghost-sleeping.svg'
 import ProfileIcon from '~/shared/icons/community.svg'
 import ProfileBlack from '~/shared/icons/community-black.svg'
-import { getIsOpened, addListener, removeListener } from '~/shared/globals';
 
 export function TabBar({ state, descriptors, navigation, isHidden }: BottomTabBarProps & { isHidden: boolean }) {
   const linkTo = useLinkTo()
   const animatedValueRef = useRef(new Animated.Value(state.index))
   const animatedValue = animatedValueRef.current
-  const [isOpened, setLocalState] = useState(getIsOpened()) 
 
   const tabBarPosition = useRef(new Animated.Value(0)).current 
 

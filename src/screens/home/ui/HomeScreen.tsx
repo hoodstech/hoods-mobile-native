@@ -88,7 +88,7 @@ export const HomeScreen = () => {
   function renderSortOption(value: string, label: string) {
     return (
       <TouchableOpacity style={styles.sortRow} onPress={() => handleSort(value)}>
-        <CustomText style={styles.bulletText}>{label}</CustomText>
+        <CustomText variant="h3">{label}</CustomText>
         <View style={styles.radioCircle}>
           {sortType === value && <View style={styles.radioDot} />}
         </View>
