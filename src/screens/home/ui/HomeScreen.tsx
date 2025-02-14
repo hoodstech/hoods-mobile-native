@@ -1,53 +1,58 @@
-import { useCallback, useRef, useState } from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { BottomSheetModal, BottomSheetScrollView, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
+import { useCallback, useRef, useState } from 'react'
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 
-import FilterArrows from '~/shared/icons/filter-arrows.svg';
-import SettingsIcon from '~/shared/icons/settings-filter.svg';
-import { ITEMS_MOCKS } from '~/entities/items/model';
-import { CustomText } from '~/shared/ui';
-import { ItemsCardGrid } from './ItemsCardGrid';
-import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
-import { JSX } from 'react/jsx-runtime';
+import { ItemsCardGrid } from './ItemsCardGrid'
+
+import FilterArrows from '~/shared/icons/filter-arrows.svg'
+import SettingsIcon from '~/shared/icons/settings-filter.svg'
+import { ITEMS_MOCKS } from '~/entities/items/model'
+import { CustomText, CustomDrawerBackdrop } from '~/shared/ui'
 
 export const HomeScreen = () => {
-  const bottomSheetRef = useRef<BottomSheetModal>(null);
-  const [sortType, setSortType] = useState<string | null>(null);
-  const [sortedItems, setSortedItems] = useState(ITEMS_MOCKS);
-  const [isSortOpen, setIsSortOpened] = useState(false);
+  const bottomSheetRef = useRef<BottomSheetModal>(null)
+  const [sortType, setSortType] = useState<string | null>(null)
+  const [sortedItems, setSortedItems] = useState(ITEMS_MOCKS)
 
-  const backdropComponent = useCallback(
-    (props: JSX.IntrinsicAttributes & BottomSheetDefaultBackdropProps) => <BottomSheetBackdrop {...props} opacity={0.4} pressBehavior="close" />,
-    []
-  );
+  const backdropComponent = useCallback(() => <CustomDrawerBackdrop modalRef={bottomSheetRef} />, [])
 
   function handleOpenSortSheet(): void {
-    setIsSortOpened(true);
-    bottomSheetRef.current?.present();
+    bottomSheetRef.current?.present()
   }
 
   function handleCloseSortSheet(): void {
-    setIsSortOpened(false);
-    bottomSheetRef.current?.dismiss();
+    bottomSheetRef.current?.dismiss()
   }
 
   function handleSort(type: string): void {
-    let sortedArray = [...ITEMS_MOCKS];
+    const sortedArray = [...ITEMS_MOCKS]
 
     switch (type) {
-      case 'date': 
-        break;
       case 'price_asc':
-        sortedArray.sort((a, b) => a.price - b.price);
-        break;
+        sortedArray.sort((a, b) => a.price - b.price)
+        break
       case 'price_desc':
-        sortedArray.sort((a, b) => b.price - a.price);
-        break;
+        sortedArray.sort((a, b) => b.price - a.price)
+        break
     }
 
-    setSortType(type);
-    setSortedItems(sortedArray);
-    handleCloseSortSheet();
+    setSortType(type)
+    setSortedItems(sortedArray)
+    handleCloseSortSheet()
+  }
+
+  function renderSortOption(value: string, label: string) {
+    return (
+      <TouchableOpacity
+        key={`${value}_${label}`}
+        style={styles.sortRow}
+        onPress={() => handleSort(value)}>
+        <CustomText variant="h3">{label}</CustomText>
+        <View style={styles.radioCircle}>
+          {sortType === value && <View style={styles.radioDot} />}
+        </View>
+      </TouchableOpacity>
+    )
   }
 
   return (
@@ -56,10 +61,17 @@ export const HomeScreen = () => {
       <CustomText style={styles.products_count}>{`${sortedItems.length} товаров`}</CustomText>
       <View style={styles.row}>
         <TouchableOpacity onPress={handleOpenSortSheet}>
-          <FilterArrows width={18} height={18} fill="#000" />
+          <FilterArrows
+            width={18}
+            height={18}
+            fill="#000" />
         </TouchableOpacity>
         <TouchableOpacity>
-          <SettingsIcon width={18} height={18} fill="#000" style={styles.iconSpacing} />
+          <SettingsIcon
+            width={18}
+            height={18}
+            fill="#000"
+            style={styles.iconSpacing} />
         </TouchableOpacity>
         <CustomText variant="h3">Тип одежды</CustomText>
       </View>
@@ -70,32 +82,19 @@ export const HomeScreen = () => {
       </ScrollView>
       <BottomSheetModal
         ref={bottomSheetRef}
-        snapPoints={['20%', '40%']}
         backdropComponent={backdropComponent}
-        maxDynamicContentSize={1000}
         onDismiss={handleCloseSortSheet}
       >
-        <BottomSheetScrollView style={styles.sheetContent}>
+        <BottomSheetView style={styles.sheetContent}>
           <CustomText style={styles.headerText}>Сортировать</CustomText>
-          {renderSortOption('price_desc', 'По дате добавления')}
+          {renderSortOption('date', 'По дате добавления')}
           {renderSortOption('price_asc', 'Сначала дешевле')}
           {renderSortOption('price_desc', 'Сначала дороже')}
-        </BottomSheetScrollView>
+        </BottomSheetView>
       </BottomSheetModal>
     </View>
-  );
-
-  function renderSortOption(value: string, label: string) {
-    return (
-      <TouchableOpacity style={styles.sortRow} onPress={() => handleSort(value)}>
-        <CustomText variant="h3">{label}</CustomText>
-        <View style={styles.radioCircle}>
-          {sortType === value && <View style={styles.radioDot} />}
-        </View>
-      </TouchableOpacity>
-    );
-  }
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -113,13 +112,12 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   headerText: {
-    paddingTop: 12,
+    paddingTop: 16,
     fontSize: 32,
     fontWeight: '600',
     fontFamily: 'Manrope',
-    textAlign: 'left',
     color: '#0F0F14',
-    marginBottom: 8,
+    paddingBottom: 8,
   },
   row: {
     flexDirection: 'row',
@@ -164,4 +162,4 @@ const styles = StyleSheet.create({
   items: {
     paddingTop: 12,
   },
-});
+})
