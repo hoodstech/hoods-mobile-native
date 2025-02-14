@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { View, Platform, Pressable, Animated, StyleSheet } from 'react-native'
 import { useLinkTo } from '@react-navigation/native'
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
@@ -15,8 +15,6 @@ export function TabBar({ state, descriptors, navigation, isHidden }: BottomTabBa
   const animatedValueRef = useRef(new Animated.Value(state.index))
   const animatedValue = animatedValueRef.current
 
-  const tabBarPosition = useRef(new Animated.Value(0)).current 
-
   useEffect(() => {
     Animated.timing(animatedValue, {
       toValue: state.index,
@@ -27,35 +25,16 @@ export function TabBar({ state, descriptors, navigation, isHidden }: BottomTabBa
 
   const tabWidth = 327 / state.routes.length
 
-  /*useEffect(() => {
-    const listener = () => {
-      const isTabBarOpened = getIsOpened()
-      setLocalState(isTabBarOpened)
-
-      Animated.timing(tabBarPosition, {
-        toValue: isTabBarOpened ? 0 : 100, 
-        duration: 0,
-        useNativeDriver: true,
-      }).start()
-    }
-
-    addListener(listener)
-    return () => {
-      removeListener(listener)
-    }
-  }, [tabBarPosition])
-  */
-
   return (
     <Animated.View
-        style={[
-          styles.tabbar,
-          {
-            display: isHidden ? 'none' : 'flex',
-            pointerEvents: isHidden ? 'none' : 'auto',
-          },
-        ]}
-      >
+      style={[
+        styles.tabbar,
+        {
+          display: isHidden ? 'none' : 'flex',
+          pointerEvents: isHidden ? 'none' : 'auto',
+        },
+      ]}
+    >
       <Animated.View
         style={[
           styles.animatedIndicator,
