@@ -2,11 +2,11 @@ import { useCallback } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 
-type ItemDetailsDrawerBackdropProps = {
+type CustomDrawerBackdropProps = {
   modalRef: React.RefObject<BottomSheetModal>,
 }
 
-export const ItemDetailsDrawerBackdrop: React.FC<ItemDetailsDrawerBackdropProps> = ({ modalRef }) => {
+export const CustomDrawerBackdrop: React.FC<CustomDrawerBackdropProps> = ({ modalRef }) => {
   const handleCloseModal = useCallback(() => {
     modalRef.current?.close()
   }, [modalRef])

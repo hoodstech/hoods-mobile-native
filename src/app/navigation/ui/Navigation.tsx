@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createContext, useState } from 'react'
 
 import { ProfileScreen } from '~/screens/profile'
 import { HomeScreen } from '~/screens/home'
@@ -26,22 +27,37 @@ export const Navigation = () => (
   </NavigationStack.Navigator>
 )
 
-export const TabNavigator = () => (
-  <Tab.Navigator tabBar={(props) => <TabBar {...props} />} initialRouteName={AppNavigationScreen.Feed}>
-    <Tab.Screen
-      name={AppNavigationScreen.Home}
-      component={HomeScreen}
-      options={{ tabBarLabel: '', headerShown: false }} 
-    />
-    <Tab.Screen
-      name={AppNavigationScreen.Feed}
-      component={FeedScreen}
-      options={{ tabBarLabel: '', headerShown: false }} 
-    />
-    <Tab.Screen
-      name={AppNavigationScreen.Profile}
-      component={ProfileScreen}
-      options={{ tabBarLabel: '', headerShown: false }} 
-    />
-  </Tab.Navigator>
-)
+const TabBarVisibilityContext = createContext<{ 
+  isSortOpen: boolean; 
+  setIsSortOpen: (value: boolean) => void;
+} | null>(null)
+
+const TabNavigator = () => {
+  const [isSortOpen, setIsSortOpen] = useState(false)
+
+  return (
+    <TabBarVisibilityContext.Provider value={{ isSortOpen, setIsSortOpen }}>
+      <Tab.Navigator 
+        key={isSortOpen ? 'hidden-tab' : 'visible-tab'}
+        tabBar={(props) => <TabBar {...props} isHidden={isSortOpen} />} 
+        initialRouteName={AppNavigationScreen.Feed}
+      >
+        <Tab.Screen
+          name={AppNavigationScreen.Home}
+          component={HomeScreen}
+          options={{ tabBarLabel: '', headerShown: false }} 
+        />
+        <Tab.Screen
+          name={AppNavigationScreen.Feed}
+          component={FeedScreen}
+          options={{ tabBarLabel: '', headerShown: false }} 
+        />
+        <Tab.Screen
+          name={AppNavigationScreen.Profile}
+          component={ProfileScreen}
+          options={{ tabBarLabel: '', headerShown: false }} 
+        />
+      </Tab.Navigator>
+    </TabBarVisibilityContext.Provider>
+  )
+}

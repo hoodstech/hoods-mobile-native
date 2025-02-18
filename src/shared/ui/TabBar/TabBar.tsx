@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { View, Platform, Pressable, Animated, StyleSheet } from 'react-native'
 import { useLinkTo } from '@react-navigation/native'
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
@@ -10,7 +10,7 @@ import GhostSleeping from '~/shared/icons/ghost-sleeping.svg'
 import ProfileIcon from '~/shared/icons/community.svg'
 import ProfileBlack from '~/shared/icons/community-black.svg'
 
-export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
+export function TabBar({ state, descriptors, navigation, isHidden }: BottomTabBarProps & { isHidden: boolean }) {
   const linkTo = useLinkTo()
   const animatedValueRef = useRef(new Animated.Value(state.index))
   const animatedValue = animatedValueRef.current
@@ -18,7 +18,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   useEffect(() => {
     Animated.timing(animatedValue, {
       toValue: state.index,
-      duration: 300,
+      duration: 230,
       useNativeDriver: false,
     }).start()
   }, [state.index, animatedValue])
@@ -26,7 +26,15 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const tabWidth = 327 / state.routes.length
 
   return (
-    <View style={styles.tabbar}>
+    <Animated.View
+      style={[
+        styles.tabbar,
+        {
+          display: isHidden ? 'none' : 'flex',
+          pointerEvents: isHidden ? 'none' : 'auto',
+        },
+      ]}
+    >
       <Animated.View
         style={[
           styles.animatedIndicator,
@@ -119,7 +127,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
           </Pressable>
         )
       })}
-    </View>
+    </Animated.View>
   )
 }
 
@@ -139,6 +147,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 10 },
     shadowRadius: 10,
     shadowOpacity: 0.1,
+    zIndex: 1,
   },
   tabbarItem: {
     flex: 1,

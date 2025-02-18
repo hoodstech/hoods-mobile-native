@@ -1,92 +1,84 @@
+import { useCallback, useRef, useState } from 'react'
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { useLinkTo } from '@react-navigation/native'
+import { BottomSheetModal, BottomSheetView, BottomSheetScrollView } from '@gorhom/bottom-sheet'
 
 import { ItemsCardGrid } from './ItemsCardGrid'
 
 import FilterArrows from '~/shared/icons/filter-arrows.svg'
 import SettingsIcon from '~/shared/icons/settings-filter.svg'
 import { ITEMS_MOCKS } from '~/entities/items/model'
-import { CustomText } from '~/shared/ui'
-import { useCallback, useRef, useState } from 'react'
-import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
-import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types'
+import { CustomText, CustomDrawerBackdrop } from '~/shared/ui'
 
 export const HomeScreen = () => {
-  const bottomSheetRef = useRef<BottomSheetModal>(null);
-  const [sortType, setSortType] = useState<string | null>(null);
-  const [sortedItems, setSortedItems] = useState(ITEMS_MOCKS);
-  const [isSortOpen, setIsSortOpened] = useState(false);
+  const bottomSheetFilterRef = useRef<BottomSheetModal>(null)
+  const bottomSheetSortingRef = useRef<BottomSheetModal>(null)
 
-  const backdropComponentFilter = useCallback(
-    (props: JSX.IntrinsicAttributes & BottomSheetDefaultBackdropProps) => <BottomSheetBackdrop {...props} opacity={0.4} pressBehavior="close" />,
-    []
-  );
+  const [sortType, setSortType] = useState<string | null>(null)
+  const [sortedItems, setSortedItems] = useState(ITEMS_MOCKS)
+
+  const backdropFilterComponent = useCallback(() => <CustomDrawerBackdrop modalRef={bottomSheetFilterRef} />, [])
+  const backdropSortingComponent = useCallback(() => <CustomDrawerBackdrop modalRef={bottomSheetSortingRef} />, [])
+
+  function handleOpenSortSheet(): void {
+    bottomSheetSortingRef.current?.present()
+  }
+
+  function handleCloseSortSheet(): void {
+    bottomSheetSortingRef.current?.dismiss()
+  }
 
   function handleOpenFilterSheet(): void {
-    setIsSortOpened(true);
-    bottomSheetRef.current?.present();
+    bottomSheetFilterRef.current?.present()
   }
 
   function handleCloseFilterSheet(): void {
-    setIsSortOpened(false);
-    bottomSheetRef.current?.dismiss();
+    bottomSheetFilterRef.current?.dismiss()
   }
 
-  function handleFilter(type: string) {
+  function handleFilter(type: string | null) {
     if (sortType === type) {
-      setSortType(null);
-      setSortedItems(ITEMS_MOCKS); 
+      setSortType(null)
+      setSortedItems(ITEMS_MOCKS) 
     } else {
-      setSortType(type);
-      const filtered = ITEMS_MOCKS.filter(item => item.type === type);
-      setSortedItems(filtered);
+      setSortType(type)
+      const filtered = ITEMS_MOCKS.filter(item => item.type === type)
+      setSortedItems(filtered)
     }
   }
 
-  return (
-    <View style={styles.container}>
-      <CustomText variant="h1">Избранное</CustomText>
-      <CustomText style={styles.products_count}>{`${sortedItems.length} товаров`}</CustomText>
-      <View style={styles.row}>
-        <TouchableOpacity>
-          <FilterArrows width={18} height={18} fill="#000" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleOpenFilterSheet}>
-          <SettingsIcon width={18} height={18} fill="#000" style={styles.iconSpacing} />
-        </TouchableOpacity>
-        <CustomText variant="h3">Тип одежды</CustomText>
-      </View>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <View style={styles.items}>
-          <ItemsCardGrid goods={sortedItems} />
+  function handleSort(type: string): void {
+    const sortedArray = [...ITEMS_MOCKS]
+
+    switch (type) {
+      case 'price_asc':
+        sortedArray.sort((a, b) => a.price - b.price)
+        break
+      case 'price_desc':
+        sortedArray.sort((a, b) => b.price - a.price)
+        break
+    }
+
+    setSortType(type)
+    setSortedItems(sortedArray)
+    handleCloseSortSheet()
+  }
+
+  function renderSortOption(value: string, label: string) {
+    return (
+      <TouchableOpacity
+        key={`${value}_${label}`}
+        style={styles.sortRow}
+        onPress={() => handleSort(value)}>
+        <CustomText variant="h3">{label}</CustomText>
+        <View style={styles.radioCircle}>
+          {sortType === value && <View style={styles.radioDot} />}
         </View>
-      </ScrollView>
-      <BottomSheetModal
-        ref={bottomSheetRef}
-        snapPoints={['75%']}
-        backdropComponent={backdropComponentFilter}
-        maxDynamicContentSize={1000}
-        onDismiss={handleCloseFilterSheet}
-      >
-        <BottomSheetScrollView style={styles.sheetContent}>
-          <CustomText style={styles.headerText}>Фильтры</CustomText>
-          <CustomText style={[{borderBottomWidth: 2, borderBottomColor: '#ccc'}]}>Тип одежды</CustomText>
-          {renderFilterOption('accessories', 'Аксессуары')}
-          {renderFilterOption('outerwear', 'Верхняя одежда')}
-          {renderFilterOption('headwear', 'Головные уборы')}
-          {renderFilterOption('sweaters', 'Джемперы и свитера')}
-          {renderFilterOption('underwear', 'Нижнее белье')}
-          {renderFilterOption('shoes', 'Обувь')}
-          {renderFilterOption('shirts', 'Футболки и рубашки')}
-          {renderFilterOption('pants', 'Штаны и шорты')}
-          {renderFilterOption('skirts', 'Юбки и платья')}
-        </BottomSheetScrollView>
-      </BottomSheetModal>
-    </View>
-  );
+      </TouchableOpacity>
+    )
+  }
 
   function renderFilterOption(type: string | null, label: string) {
-    const isSelected = sortType === type;
+    const isSelected = sortType === type
   
     return (
       <TouchableOpacity
@@ -102,9 +94,71 @@ export const HomeScreen = () => {
           {isSelected && <View style={styles.radioDot} />}
         </View>
       </TouchableOpacity>
-    );
+    )
   }
-};
+
+  return (
+    <View style={styles.container}>
+      <CustomText variant="h1">Избранное</CustomText>
+      <CustomText style={styles.products_count}>{`${sortedItems.length} товаров`}</CustomText>
+      <View style={styles.row}>
+        <TouchableOpacity onPress={handleOpenSortSheet}>
+          <FilterArrows
+            width={18}
+            height={18}
+            fill="#000"
+            style={styles.iconSpacing} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleOpenFilterSheet}>
+          <SettingsIcon
+            width={18}
+            height={18}
+            fill="#000"
+          />
+        </TouchableOpacity>
+        <CustomText variant="h3">Тип одежды</CustomText>
+      </View>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.items}>
+          <ItemsCardGrid goods={sortedItems} />
+        </View>
+      </ScrollView>
+      <BottomSheetModal
+        ref={bottomSheetSortingRef}
+        backdropComponent={backdropSortingComponent}
+        onDismiss={handleCloseSortSheet}
+      >
+        <BottomSheetView style={styles.sheetContent}>
+          <CustomText style={styles.headerText}>Сортировать</CustomText>
+          {renderSortOption('date', 'По дате добавления')}
+          {renderSortOption('price_asc', 'Сначала дешевле')}
+          {renderSortOption('price_desc', 'Сначала дороже')}
+        </BottomSheetView>
+      </BottomSheetModal>
+      <BottomSheetModal
+        ref={bottomSheetFilterRef}
+        snapPoints={['75%']}
+        backdropComponent={backdropFilterComponent}
+        maxDynamicContentSize={1000}
+        onDismiss={handleCloseFilterSheet}
+      >
+        <BottomSheetScrollView style={styles.sheetContent}>
+          <CustomText style={styles.headerText}>Фильтры</CustomText>
+          <CustomText style={[{ borderBottomWidth: 2, borderBottomColor: '#ccc' }]}>Тип одежды</CustomText>
+          {renderFilterOption('accessories', 'Аксессуары')}
+          {renderFilterOption('outerwear', 'Верхняя одежда')}
+          {renderFilterOption('headwear', 'Головные уборы')}
+          {renderFilterOption('sweaters', 'Джемперы и свитера')}
+          {renderFilterOption('underwear', 'Нижнее белье')}
+          {renderFilterOption('shoes', 'Обувь')}
+          {renderFilterOption('shirts', 'Футболки и рубашки')}
+          {renderFilterOption('pants', 'Штаны и шорты')}
+          {renderFilterOption('skirts', 'Юбки и платья')}
+        </BottomSheetScrollView>
+      </BottomSheetModal>
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -122,13 +176,12 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   headerText: {
-    paddingTop: 24,
-    fontSize: 43,
+    paddingTop: 16,
+    fontSize: 32,
     fontWeight: '600',
     fontFamily: 'Manrope',
-    textAlign: 'left',
     color: '#0F0F14',
-    marginBottom: 8,
+    paddingBottom: 8,
   },
   row: {
     flexDirection: 'row',
@@ -150,8 +203,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 10, 
-    paddingLeft: 32,
+    paddingVertical: 14,
     borderBottomWidth: 2, 
     borderBottomColor: '#ccc', 
   },
@@ -174,4 +226,4 @@ const styles = StyleSheet.create({
   items: {
     paddingTop: 12,
   },
-});
+})

@@ -2,9 +2,7 @@ import { useCallback } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
 
-import { ItemDetailsDrawerBackdrop } from '../ItemDetailsDrawerBackdrop'
-
-import { CustomText } from '~/shared/ui'
+import { CustomText, CustomDrawerBackdrop } from '~/shared/ui'
 import { Item } from '~/entities/items/model'
 import { SizesPanel } from '~/entities/items/ui'
 
@@ -14,7 +12,7 @@ type ItemDetailsDrawerProps = {
 }
 
 export const ItemDetailsDrawer: React.FC<ItemDetailsDrawerProps> = ({ item, modalRef }) => {
-  const backdropComponent = useCallback(() => <ItemDetailsDrawerBackdrop modalRef={modalRef} />, [modalRef])
+  const backdropComponent = useCallback(() => <CustomDrawerBackdrop modalRef={modalRef} />, [modalRef])
 
   return (
     <BottomSheetModal
