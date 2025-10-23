@@ -23,9 +23,9 @@ export const ItemDetailsDrawer: React.FC<ItemDetailsDrawerProps> = ({ item, visi
         <ScrollView style={[styles.contentContainer, styles.modalContent]}>
           <CustomText variant="h3">{item.title}</CustomText>
           <CustomText variant='paragraphSmallBold'>
-            {item.price}
+            {Math.round(item.price / 100)}
             {' '}
-            руб.
+            €
           </CustomText>
           <View style={styles.topicsContainer}>
             <SizesPanel

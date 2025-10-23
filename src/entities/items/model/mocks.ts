@@ -7,7 +7,7 @@ export const ITEMS_MOCKS: Item[] = [
     title: 'Базовая футболка',
     type: "shirts",
     description: 'Классическая базовая футболка из хлопка',
-    price: 2_500_00,
+    price: 2500,
     characteristics: [
       'Материал: 100% хлопок',
       'Классический крой',
@@ -42,7 +42,7 @@ export const ITEMS_MOCKS: Item[] = [
     title: 'Базовые брюки',
     type: "pants",
     description: 'Классические базовые брюки прямого кроя',
-    price: 4_500_00,
+    price: 4500,
     characteristics: [
       'Материал: хлопок с эластаном',
       'Прямой крой',
@@ -77,7 +77,7 @@ export const ITEMS_MOCKS: Item[] = [
     title: 'Поло классическое',
     type: "shirts",
     description: 'Элегантная футболка-поло для стильного образа',
-    price: 32_200_00,
+    price: 3200,
     characteristics: [
       'Материал: 100% хлопок',
       'Воротник-поло',
@@ -112,7 +112,7 @@ export const ITEMS_MOCKS: Item[] = [
     title: 'Умные часы',
     type: "accessories",
     description: 'Минималистичные часы для повседневной носки',
-    price: 8_900_00,
+    price: 8900,
     characteristics: [
       'Материал корпуса: нержавеющая сталь',
       'Механизм: кварцевый',
@@ -132,7 +132,7 @@ export const ITEMS_MOCKS: Item[] = [
     title: 'Пуховик демисезонный',
     type: "outerwear",
     description: 'Легкая куртка для прохладной погоды',
-    price: 12_50_00,
+    price: 12500,
     characteristics: [
       'Материал: нейлон с полиуретановым покрытием',
       'Утеплитель: синтепон',
@@ -162,7 +162,7 @@ export const ITEMS_MOCKS: Item[] = [
     title: 'Платье летнее',
     type: "skirts",
     description: 'Воздушное платье для теплых дней',
-    price: 5_800_00,
+    price: 5800,
     characteristics: [
       'Материал: вискоза',
       'Свободный силуэт',
@@ -197,7 +197,7 @@ export const ITEMS_MOCKS: Item[] = [
     title: 'Кроссовки спортивные',
     type: "shoes",
     description: 'Удобные кроссовки для активного образа жизни',
-    price: 7_500_00,
+    price: 7500,
     characteristics: [
       'Верх: текстиль и синтетика',
       'Подошва: резина',
@@ -237,7 +237,7 @@ export const ITEMS_MOCKS: Item[] = [
     title: 'Рюкзак городской',
     type: "accessories",
     description: 'Практичный рюкзак для города и путешествий',
-    price: 4_200_00,
+    price: 4200,
     characteristics: [
       'Материал: нейлон Oxford',
       'Объем: 20 литров',

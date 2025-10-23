@@ -6,16 +6,16 @@ import { CustomText, ActionButton } from '~/shared/ui'
 
 export const ProfileScreen = () => {
   const [userInfo, setUserInfo] = useState({
-    name: 'Тимофей Стукалин',
-    email: 'timofey@example.com',
-    phone: '+7 (999) 123-45-67',
-    location: 'Москва, Россия'
+    name: 'Андрей Иванов',
+    email: 'andrew@example.com',
+    phone: '+123 (999) 123-45-67',
+    location: 'Coppengagen, Denmark'
   })
 
   const [stats] = useState({
-    favorites: 12,
-    orders: 8,
-    reviews: 15
+    favorites: 8,
+    orders: 5,
+    reviews: 4
   })
 
   const handleEditProfile = () => {
@@ -52,7 +52,7 @@ export const ProfileScreen = () => {
         <View style={styles.avatarSection}>
           <View style={styles.avatarContainer}>
             <Image
-              source={{ uri: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face' }}
+              source={{ uri: 'https://cdn-icons-png.flaticon.com/512/6522/6522516.png' }}
               style={styles.avatar}
             />
             <TouchableOpacity style={styles.editAvatarButton}>

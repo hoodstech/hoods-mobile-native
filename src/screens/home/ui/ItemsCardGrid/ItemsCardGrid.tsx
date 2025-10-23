@@ -30,7 +30,7 @@ export const ItemsCardGrid: React.FC<ItemsCardGridProps> = ({ goods }) => {
         </View>
       </View>
       <CustomText variant="h3" style={styles.price}>
-        {item.price} руб.
+        {Math.round(item.price / 100)} €
       </CustomText>
       <CustomText variant="h3" style={styles.title}>{item.title}</CustomText>
       <CustomText variant="h3" style={styles.brand}>{item.description}</CustomText>

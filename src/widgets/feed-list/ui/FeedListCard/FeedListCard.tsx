@@ -28,7 +28,7 @@ export const FeedListCard: FC<FeedListCardProps> = ({ item }) => {
         <CustomText variant='paragraphSmallBold'>
           {item.price / 100}
           {' '}
-          руб.
+          €
         </CustomText>
         <SizesPanel sizes={item.sizes} style={{ marginTop: 12 }} />
       </View>
