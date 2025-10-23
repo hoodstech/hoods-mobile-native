@@ -5,3 +5,8 @@ declare module '*.svg' {
   const content: React.StatelessComponent<SvgProps>
   export default content
 }
+
+declare module '*.png' {
+  const value: import('react-native').ImageSourcePropType;
+  export default value;
+}

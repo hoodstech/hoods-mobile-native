@@ -4,5 +4,6 @@ export enum AppNavigationScreen {
   SignUp = 'sign-up',
   Feed = 'feed',
   Profile = 'profile',
+  ProfSettings = "ProfSettings",
 }
 
