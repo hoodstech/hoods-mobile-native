@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from 'react'
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { BottomSheetModal, BottomSheetView, BottomSheetScrollView } from '@gorhom/bottom-sheet'
+// import { BottomSheetModal, BottomSheetView, BottomSheetScrollView } from '@gorhom/bottom-sheet'
 
 import { ItemsCardGrid } from './ItemsCardGrid'
 
@@ -10,8 +10,8 @@ import { ITEMS_MOCKS } from '~/entities/items/model'
 import { CustomText, CustomDrawerBackdrop } from '~/shared/ui'
 
 export const HomeScreen = () => {
-  const bottomSheetFilterRef = useRef<BottomSheetModal>(null)
-  const bottomSheetSortingRef = useRef<BottomSheetModal>(null)
+  const bottomSheetFilterRef = useRef<any>(null)
+  const bottomSheetSortingRef = useRef<any>(null)
 
   const [sortType, setSortType] = useState<string | null>(null)
   const [sortedItems, setSortedItems] = useState(ITEMS_MOCKS)
@@ -123,26 +123,18 @@ export const HomeScreen = () => {
           <ItemsCardGrid goods={sortedItems} />
         </View>
       </ScrollView>
-      <BottomSheetModal
-        ref={bottomSheetSortingRef}
-        backdropComponent={backdropSortingComponent}
-        onDismiss={handleCloseSortSheet}
-      >
-        <BottomSheetView style={styles.sheetContent}>
+      {/* Временно отключено: BottomSheetModal для сортировки */}
+      <View style={{ display: 'none' }}>
+        <View style={styles.sheetContent}>
           <CustomText style={styles.headerText}>Сортировать</CustomText>
           {renderSortOption('date', 'По дате добавления')}
           {renderSortOption('price_asc', 'Сначала дешевле')}
           {renderSortOption('price_desc', 'Сначала дороже')}
-        </BottomSheetView>
-      </BottomSheetModal>
-      <BottomSheetModal
-        ref={bottomSheetFilterRef}
-        snapPoints={['75%']}
-        backdropComponent={backdropFilterComponent}
-        maxDynamicContentSize={1000}
-        onDismiss={handleCloseFilterSheet}
-      >
-        <BottomSheetScrollView style={styles.sheetContent}>
+        </View>
+      </View>
+      {/* Временно отключено: BottomSheetModal для фильтров */}
+      <View style={{ display: 'none' }}>
+        <View style={styles.sheetContent}>
           <CustomText style={styles.headerText}>Фильтры</CustomText>
           <CustomText style={[{ borderBottomWidth: 2, borderBottomColor: '#ccc' }]}>Тип одежды</CustomText>
           {renderFilterOption('accessories', 'Аксессуары')}
@@ -154,8 +146,8 @@ export const HomeScreen = () => {
           {renderFilterOption('shirts', 'Футболки и рубашки')}
           {renderFilterOption('pants', 'Штаны и шорты')}
           {renderFilterOption('skirts', 'Юбки и платья')}
-        </BottomSheetScrollView>
-      </BottomSheetModal>
+        </View>
+      </View>
     </View>
   )
 }

@@ -1,10 +1,10 @@
 import { FC } from 'react'
-import { Image, StyleSheet, View } from 'react-native'
+import { Image, StyleSheet, View, TouchableOpacity } from 'react-native'
 
 import { Item } from '~/entities/items/model'
 import { CustomText } from '~/shared/ui'
 import { SizesPanel } from '~/entities/items/ui'
-import { OpenItemDetails } from '~/features/open-item-details/ui'
+// import { OpenItemDetails } from '~/features/open-item-details/ui'
 
 interface FeedListCardProps {
   item: Item
@@ -23,7 +23,10 @@ export const FeedListCard: FC<FeedListCardProps> = ({ item }) => {
       <View style={styles.innerWrapper}>
         <View style={styles.titleWrapper}>
           <CustomText variant="h3">{item.title}</CustomText>
-          <OpenItemDetails item={item} />
+          {/* Временно заменили OpenItemDetails */}
+          <TouchableOpacity onPress={() => console.log('Details temporarily disabled')}>
+            <CustomText style={{ color: '#AC95D2' }}>Детали</CustomText>
+          </TouchableOpacity>
         </View>
         <CustomText variant='paragraphSmallBold'>
           {item.price / 100}

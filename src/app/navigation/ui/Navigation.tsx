@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createContext, useState } from 'react'
 
 import { ProfileScreen } from '~/screens/profile'
+import { ProfileSettings } from '~/screens/profile/ui/ProfileSettings'
 import { HomeScreen } from '~/screens/home'
 import { SignUpScreen } from '~/screens/auth'
 import { FeedScreen } from '~/screens/feed'
@@ -23,6 +24,16 @@ export const Navigation = () => (
       options={{ headerShown: false }}
       name={AppNavigationScreen.MainScreens}
       component={TabNavigator}
+    />
+    <NavigationStack.Screen
+      options={{ headerShown: false }}
+      name={AppNavigationScreen.ProfSettings}
+      component={ProfileSettings}
+    />
+    <NavigationStack.Screen
+      options={{ headerShown: false }}
+      name={AppNavigationScreen.Profile}
+      component={ProfileScreen}
     />
   </NavigationStack.Navigator>
 )

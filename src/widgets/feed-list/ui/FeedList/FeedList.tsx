@@ -1,9 +1,16 @@
 import { useCallback, useRef } from 'react'
-import { StyleSheet, View } from 'react-native'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { Swiper, type SwiperCardRefType } from 'rn-swiper-list'
+import { StyleSheet, View, Text } from 'react-native'
+// Safe import for GestureHandlerRootView
+let GestureHandlerRootView: any = View
+try {
+  const gestureHandler = require('react-native-gesture-handler')
+  GestureHandlerRootView = gestureHandler.GestureHandlerRootView || View
+} catch (error) {
+  console.warn('GestureHandlerRootView not available, using View as fallback')
+}
+// import { Swiper, type SwiperCardRefType } from 'rn-swiper-list'
 
-import { FeedListCard } from '../FeedListCard'
+// import { FeedListCard } from '../FeedListCard'
 
 import type { Item } from '~/entities/items/model'
 import { ITEMS_MOCKS } from '~/entities/items/model'
@@ -16,12 +23,26 @@ import { ActionButton } from '~/shared/ui'
 
 
 export const FeedList = () => {
-  const ref = useRef<SwiperCardRefType>()
-  const renderCard = useCallback((item: Item) => <FeedListCard item={item} />, [])
+  const ref = useRef<any>()
+  const renderCard = useCallback((item: Item) => (
+    <View style={{ padding: 20, backgroundColor: '#f0f0f0', margin: 10 }}>
+      <Text>Item: {item.title}</Text>
+    </View>
+  ), [])
 
   return (
     <GestureHandlerRootView style={styles.container}>
       <View style={styles.subContainer}>
+        {/* Временно отключен Swiper из-за gesture-handler проблем */}
+        <View style={styles.cardStyle}>
+          <Text style={{ textAlign: 'center', marginTop: 200, fontSize: 18 }}>
+            Feed функциональность временно отключена
+          </Text>
+          <Text style={{ textAlign: 'center', marginTop: 10, fontSize: 14, color: '#666' }}>
+            Swiper зависит от react-native-gesture-handler
+          </Text>
+        </View>
+        {/* Заменено:
         <Swiper<Item>
           ref={ref}
           cardStyle={styles.cardStyle}
@@ -52,12 +73,14 @@ export const FeedList = () => {
             console.log('onSwipeEnd')
           }}
         />
+        */}
       </View>
       <View style={styles.buttonsContainer}>
         <ActionButton
           style={[styles.button, styles.buttonOutline, styles.buttonGhost]}
           onTap={() => {
-            ref.current?.swipeBack()
+            // ref.current?.swipeBack()
+            console.log('Swipe back temporarily disabled')
           }}
         >
           <ReturnArrowLogo
@@ -69,7 +92,8 @@ export const FeedList = () => {
         <ActionButton
           style={[styles.button, styles.buttonOutline]}
           onPress={() => {
-            ref.current?.swipeLeft()
+            // ref.current?.swipeLeft()
+            console.log('Swipe left temporarily disabled')
           }}
         >
           <CloseLogo
@@ -81,7 +105,8 @@ export const FeedList = () => {
         <ActionButton
           style={[styles.button, styles.buttonPrimary]}
           onPress={() => {
-            ref.current?.swipeTop()
+            // ref.current?.swipeTop()
+            console.log('Swipe top temporarily disabled')
           }}
         >
           <CartLogo
@@ -93,7 +118,8 @@ export const FeedList = () => {
         <ActionButton
           style={[styles.button, styles.buttonOutline]}
           onTap={() => {
-            ref.current?.swipeRight()
+            // ref.current?.swipeRight()
+            console.log('Swipe right temporarily disabled')
           }}
         >
           <HeartLogo
@@ -106,7 +132,8 @@ export const FeedList = () => {
           style={[styles.button, styles.buttonOutline, styles.buttonGhost]}
           onTap={() => {
             // TODO: link goto
-            ref.current?.swipeRight()
+            // ref.current?.swipeRight()
+            console.log('Star tap temporarily disabled')
           }}
         >
           <StarOutlineLogo
