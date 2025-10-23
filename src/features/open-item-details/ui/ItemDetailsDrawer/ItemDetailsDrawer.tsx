@@ -1,94 +1,90 @@
-import { useCallback } from 'react'
-import { StyleSheet, View } from 'react-native'
-import { BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
+import React from 'react'
+import { StyleSheet, View, Modal, ScrollView, Pressable } from 'react-native'
 
-import { CustomText, CustomDrawerBackdrop } from '~/shared/ui'
+import { CustomText } from '~/shared/ui'
 import { Item } from '~/entities/items/model'
 import { SizesPanel } from '~/entities/items/ui'
 
 type ItemDetailsDrawerProps = {
-  modalRef: React.RefObject<BottomSheetModal>,
+  visible: boolean,
+  onClose: () => void,
   item: Item
 }
 
-export const ItemDetailsDrawer: React.FC<ItemDetailsDrawerProps> = ({ item, modalRef }) => {
-  const backdropComponent = useCallback(() => <CustomDrawerBackdrop modalRef={modalRef} />, [modalRef])
-
+export const ItemDetailsDrawer: React.FC<ItemDetailsDrawerProps> = ({ item, visible, onClose }) => {
   return (
-    <BottomSheetModal
-      ref={modalRef}
-      backdropComponent={backdropComponent}
-      maxDynamicContentSize={1000}
+    <Modal
+      visible={visible}
+      transparent
+      animationType="slide"
+      onRequestClose={onClose}
     >
-      <BottomSheetScrollView style={styles.contentContainer}>
-        <CustomText variant="h3">{item.title}</CustomText>
-        <CustomText variant='paragraphSmallBold'>
-          {item.price / 100}
-          {' '}
-          руб.
-        </CustomText>
-        <View style={styles.topicsContainer}>
-          <SizesPanel
-            variant="column"
-            sizes={item.sizes}
-            style={{ marginTop: 12 }}
-          />
-          {item.characteristics?.length && (
-            <View>
-              <CustomText variant="paragraphSmallBold">
-                О модели
-              </CustomText>
-              <View style={styles.topicWrapper}>
-                {item.characteristics.map((characteristic) => (
-                  <View>
-                    <CustomText variant="paragraphSmall">
-                      —
-                      {' '}
-                      {characteristic}
-                    </CustomText>
-                  </View>
-                ))}
+      <Pressable style={styles.modalBackdrop} onPress={onClose}>
+        <ScrollView style={[styles.contentContainer, styles.modalContent]}>
+          <CustomText variant="h3">{item.title}</CustomText>
+          <CustomText variant='paragraphSmallBold'>
+            {item.price}
+            {' '}
+            руб.
+          </CustomText>
+          <View style={styles.topicsContainer}>
+            <SizesPanel
+              variant="column"
+              sizes={item.sizes}
+              style={{ marginTop: 12 }}
+            />
+            {item.characteristics?.length && (
+              <View>
+                <CustomText variant="paragraphSmallBold">
+                  О модели
+                </CustomText>
+                <View style={styles.topicWrapper}>
+                  {item.characteristics.map((characteristic, index) => (
+                    <View key={index}>
+                      <CustomText variant="paragraphSmall">
+                        —
+                        {' '}
+                        {characteristic}
+                      </CustomText>
+                    </View>
+                  ))}
+                </View>
               </View>
-            </View>
-          )}
-          {item.sizes?.length && (
-            <View>
-              <CustomText variant="paragraphSmallBold">
-                Размерная сетка по росту
-              </CustomText>
-              <View style={[styles.topicWrapper, { paddingBottom: 24 }]}>
-                {item.sizes.map((size) => (
-                  <View>
-                    <CustomText variant="paragraphSmall">
-                      {`(${size.name}) ${size.description}`}
-                    </CustomText>
-                  </View>
-                ))}
+            )}
+            {item.sizes?.length && (
+              <View>
+                <CustomText variant="paragraphSmallBold">
+                  Размерная сетка по росту
+                </CustomText>
+                <View style={[styles.topicWrapper, { paddingBottom: 24 }]}>
+                  {item.sizes.map((size, index) => (
+                    <View key={index}>
+                      <CustomText variant="paragraphSmall">
+                        {`(${size.name}) ${size.description}`}
+                      </CustomText>
+                    </View>
+                  ))}
+                </View>
               </View>
-            </View>
-          )}
-        </View>
-      </BottomSheetScrollView>
-    </BottomSheetModal>
+            )}
+          </View>
+        </ScrollView>
+      </Pressable>
+    </Modal>
   )
 }
 
 const styles = StyleSheet.create({
-  buttonWrapper: {
-    flexDirection: 'row',
-    columnGap: 8,
+  modalBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'flex-end',
   },
-  iconWrapper: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 18,
-    height: 18,
-    borderRadius: '50%',
-    backgroundColor: '#0F0F14',
-  },
-  iconText: {
-    color: '#fff',
-    fontSize: 12,
+  modalContent: {
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    maxHeight: '80%',
   },
   contentContainer: {
     padding: 24,

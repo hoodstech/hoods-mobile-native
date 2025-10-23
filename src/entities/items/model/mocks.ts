@@ -77,7 +77,7 @@ export const ITEMS_MOCKS: Item[] = [
     title: 'Поло классическое',
     type: "shirts",
     description: 'Элегантная футболка-поло для стильного образа',
-    price: 3_200_00,
+    price: 32_200_00,
     characteristics: [
       'Материал: 100% хлопок',
       'Воротник-поло',
@@ -132,7 +132,7 @@ export const ITEMS_MOCKS: Item[] = [
     title: 'Пуховик демисезонный',
     type: "outerwear",
     description: 'Легкая куртка для прохладной погоды',
-    price: 12_500_00,
+    price: 12_50_00,
     characteristics: [
       'Материал: нейлон с полиуретановым покрытием',
       'Утеплитель: синтепон',

@@ -5,6 +5,7 @@ import type { Item } from '~/entities/items/model'
 import StarIcon from '~/shared/icons/starpurple.svg'
 import Cart from '~/shared/icons/cart.svg'
 import { CustomText } from '~/shared/ui'
+import { OpenItemDetails } from '~/features/open-item-details/ui'
 
 type ItemsCardGridProps = {
   goods: Item[];
@@ -29,10 +30,13 @@ export const ItemsCardGrid: React.FC<ItemsCardGridProps> = ({ goods }) => {
         </View>
       </View>
       <CustomText variant="h3" style={styles.price}>
-        16 500 руб
+        {item.price} руб.
       </CustomText>
       <CustomText variant="h3" style={styles.title}>{item.title}</CustomText>
       <CustomText variant="h3" style={styles.brand}>{item.description}</CustomText>
+      <View style={styles.buttonWrapper}>
+        <OpenItemDetails item={item} />
+      </View>
     </View>
   )
 
@@ -110,6 +114,9 @@ const styles = StyleSheet.create({
   iconCart: {
     width: 18, 
     height: 18,
+  },
+  buttonWrapper: {
+    marginTop: 8,
   },
 })
   

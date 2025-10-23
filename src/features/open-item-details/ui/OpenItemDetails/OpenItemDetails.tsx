@@ -1,5 +1,4 @@
-import { useCallback, useRef } from 'react'
-import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import { useCallback, useState } from 'react'
 
 import { ItemDetailsButton } from '../ItemDetailsButton'
 import { ItemDetailsDrawer } from '../ItemDetailsDrawer'
@@ -11,17 +10,25 @@ type OpenItemDetailsButtonProps = {
 }
 
 export const OpenItemDetails: React.FC<OpenItemDetailsButtonProps> = ({ item }) => {
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null)
+  const [isVisible, setIsVisible] = useState(false)
 
   // callbacks
   const handleOpenModal = useCallback(() => {
-    bottomSheetModalRef.current?.present()
+    setIsVisible(true)
+  }, [])
+
+  const handleCloseModal = useCallback(() => {
+    setIsVisible(false)
   }, [])
 
   return (
     <>
       <ItemDetailsButton onPress={handleOpenModal} />
-      <ItemDetailsDrawer modalRef={bottomSheetModalRef} item={item} />
+      <ItemDetailsDrawer 
+        visible={isVisible}
+        onClose={handleCloseModal}
+        item={item} 
+      />
     </>
   )
 }

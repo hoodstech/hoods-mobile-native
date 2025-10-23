@@ -1,5 +1,10 @@
 const { getDefaultConfig } = require("expo/metro-config");
 
+// Полифилл для react-native-reanimated
+if (typeof global !== 'undefined') {
+  global.useWorkletCallback = global.useWorkletCallback || ((callback) => callback);
+}
+
 module.exports = (() => {
   const config = getDefaultConfig(__dirname)
 
