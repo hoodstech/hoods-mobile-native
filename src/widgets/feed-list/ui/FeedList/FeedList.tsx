@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Swiper, type SwiperCardRefType } from 'rn-swiper-list'
@@ -12,52 +12,70 @@ import ReturnArrowLogo from '~/shared/icons/return-arrow.svg'
 import CloseLogo from '~/shared/icons/close.svg'
 import HeartLogo from '~/shared/icons/heart.svg'
 import StarOutlineLogo from '~/shared/icons/star-outline.svg'
-import { ActionButton } from '~/shared/ui'
+import { ActionButton, CustomText } from '~/shared/ui'
 
 
 export const FeedList = () => {
   const ref = useRef<SwiperCardRefType>()
+  const [isAllSwiped, setIsAllSwiped] = useState(false)
+  
   const renderCard = useCallback((item: Item) => <FeedListCard item={item} />, [])
 
   return (
     <GestureHandlerRootView style={styles.container}>
       <View style={styles.subContainer}>
-        <Swiper<Item>
-          ref={ref}
-          cardStyle={styles.cardStyle}
-          data={ITEMS_MOCKS}
-          renderCard={renderCard}
-          onIndexChange={(index) => {
-            console.log('Current Active index', index)
-          }}
-          onSwipeRight={(cardIndex) => {
-            console.log('cardIndex', cardIndex)
-          }}
-          onSwipedAll={() => {
-            console.log('onSwipedAll')
-          }}
-          onSwipeLeft={(cardIndex) => {
-            console.log('onSwipeLeft', cardIndex)
-          }}
-          onSwipeTop={(cardIndex) => {
-            console.log('onSwipeTop', cardIndex)
-          }}
-          onSwipeActive={() => {
-            console.log('onSwipeActive')
-          }}
-          onSwipeStart={() => {
-            console.log('onSwipeStart')
-          }}
-          onSwipeEnd={() => {
-            console.log('onSwipeEnd')
-          }}
-        />
+        {isAllSwiped ? (
+          <View style={styles.endMessageContainer}>
+            <CustomText style={styles.endMessageText}>
+              Пока что это все товары, которые мы можем вам предложить!
+            </CustomText>
+            <CustomText style={styles.endMessageSubText}>
+              Нажмите кнопку возврата, чтобы посмотреть снова
+            </CustomText>
+          </View>
+        ) : (
+          <Swiper<Item>
+            ref={ref}
+            cardStyle={styles.cardStyle}
+            data={ITEMS_MOCKS}
+            renderCard={renderCard}
+            onIndexChange={(index) => {
+              console.log('Current Active index', index)
+            }}
+            onSwipeRight={(cardIndex) => {
+              console.log('cardIndex', cardIndex)
+            }}
+            onSwipedAll={() => {
+              console.log('onSwipedAll')
+              setIsAllSwiped(true)
+            }}
+            onSwipeLeft={(cardIndex) => {
+              console.log('onSwipeLeft', cardIndex)
+            }}
+            onSwipeTop={(cardIndex) => {
+              console.log('onSwipeTop', cardIndex)
+            }}
+            onSwipeActive={() => {
+              console.log('onSwipeActive')
+            }}
+            onSwipeStart={() => {
+              console.log('onSwipeStart')
+            }}
+            onSwipeEnd={() => {
+              console.log('onSwipeEnd')
+            }}
+          />
+        )}
       </View>
       <View style={styles.buttonsContainer}>
         <ActionButton
           style={[styles.button, styles.buttonOutline, styles.buttonGhost]}
           onTap={() => {
-            ref.current?.swipeBack()
+            if (isAllSwiped) {
+              setIsAllSwiped(false)
+            } else {
+              ref.current?.swipeBack()
+            }
           }}
         >
           <ReturnArrowLogo
@@ -177,5 +195,24 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     borderRadius: 15,
+  },
+  endMessageContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 40,
+  },
+  endMessageText: {
+    fontSize: 18,
+    textAlign: 'center',
+    color: '#666',
+    lineHeight: 24,
+    marginBottom: 12,
+  },
+  endMessageSubText: {
+    fontSize: 14,
+    textAlign: 'center',
+    color: '#999',
+    lineHeight: 20,
   },
 })

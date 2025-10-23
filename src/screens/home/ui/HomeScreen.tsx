@@ -69,7 +69,7 @@ export const HomeScreen = () => {
         key={`${value}_${label}`}
         style={styles.sortRow}
         onPress={() => handleSort(value)}>
-        <CustomText variant="h3">{label}</CustomText>
+        <CustomText style={styles.bulletText}>{label}</CustomText>
         <View style={styles.radioCircle}>
           {sortType === value && <View style={styles.radioDot} />}
         </View>
