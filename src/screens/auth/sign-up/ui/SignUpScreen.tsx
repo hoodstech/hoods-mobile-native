@@ -6,19 +6,15 @@ import * as yup from 'yup'
 import { useNavigation, type NavigationProp } from '@react-navigation/native'
 import { useMutation } from '@tanstack/react-query'
 
-import { Button } from '~/shared/ui'
+import { Button, Input, FormElement } from '~/shared/ui'
 import { AppNavigationScreen } from '~/shared/config/navigation'
 
-// TODO: Обновить стили, поправить работу экрана
-// const requiredMessage = 'Поле обязательно для заполнения'
+const requiredMessage = 'Поле обязательно для заполнения'
 
 const signUpSchema = yup.object({
-  // email: yup.string().email('Невалидное значение почты').required(requiredMessage),
-  // password: yup.string().required(requiredMessage),
-  // name: yup.string().required(requiredMessage),
-  email: yup.string().notRequired(),
-  password: yup.string().notRequired(),
-  name: yup.string().notRequired(),
+  email: yup.string().email('Невалидное значение почты').required(requiredMessage),
+  password: yup.string().min(6, 'Пароль должен содержать минимум 6 символов').required(requiredMessage),
+  name: yup.string().required(requiredMessage),
 }).required()
 
 type TSignUpFormData = yup.InferType<typeof signUpSchema>
@@ -45,6 +41,7 @@ export const SignUpScreen = () => {
 
   const {
     handleSubmit,
+    control,
     formState: { isValid },
   } = useForm<TSignUpFormData>({
     mode: 'onBlur',
@@ -69,7 +66,7 @@ export const SignUpScreen = () => {
           <Text style={[styles.subText, isDarkTheme && styles.darkText]}>
             Введите имя пользователя для своего аккаунта. Вы всегда можете изменить его
           </Text>
-          {/* <FormElement
+          <FormElement
             name="name"
             control={control}
             validateSchema={signUpSchema}
@@ -79,15 +76,15 @@ export const SignUpScreen = () => {
               onChangeText={onChange}
               {...props}
             />}
-          /> */}
+          />
         </>
       ) : (
         <>
           <Text style={[styles.headerText, styles.headerTextStep2, isDarkTheme && styles.darkText]}>
-            Введите свой            эл.адрес и придумайте пароль
+            Введите свой эл.адрес и придумайте пароль
           </Text>
           <View style={styles.formGroup}>
-            {/* <FormElement
+            <FormElement
               name="email"
               control={control}
               validateSchema={signUpSchema}
@@ -95,10 +92,12 @@ export const SignUpScreen = () => {
               renderElement={({ onChange, ...props }) => <Input
                 placeholder="Эл. почта"
                 onChangeText={onChange}
+                keyboardType="email-address"
+                autoCapitalize="none"
                 {...props}
               />}
-            /> */}
-            {/* <FormElement
+            />
+            <FormElement
               name="password"
               control={control}
               validateSchema={signUpSchema}
@@ -110,26 +109,13 @@ export const SignUpScreen = () => {
                   secureTextEntry
                   {...props} />
               }}
-            /> */}
-            {/* <FormElement
-              name="password"
-              control={control}
-              validateSchema={signUpSchema}
-              style={styles.lastInput} 
-              renderElement={({ onChange, ...props }) => {
-                return <Input
-                  placeholder="Подтвердите пароль"
-                  onChangeText={onChange}
-                  secureTextEntry
-                  {...props} />
-              }}
-            /> */}
+            />
           </View>
         </>
       )}
 
       <Button
-        disabled={!isValid || isPending}
+        disabled={false}
         title={step === 1 ? 'Далее' : 'Завершить регистрацию'}
         onPress={handlePressButton}
         style={styles.button}
@@ -172,7 +158,8 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   formGroup: {
-    gap: 10,
+    gap: 15,
+    marginTop: 20,
   },
   button: {
     width: 265,
@@ -181,7 +168,10 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 14,
     borderRadius: 26,
+    borderWidth: 2,
+    borderColor: '#FFF',
     alignSelf: 'center',
+    marginTop: 30,
     marginBottom: 108,
   },
   buttonStep2: {
@@ -189,23 +179,12 @@ const styles = StyleSheet.create({
   },
   input: {
     width: 290,
-    height: 43,
     alignSelf: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 14,
-    gap: 10,
-    borderRadius: 27,
-    paddingTop: 30,
+    marginTop: 30,
   },
   lastInput: {
     width: 290,
-    height: 43,
     alignSelf: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 14,
-    gap: 20,
-    borderRadius: 27,
-    paddingTop: 30,
   },
 })
 

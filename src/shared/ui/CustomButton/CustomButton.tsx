@@ -10,26 +10,40 @@ type ButtonProps = PressableProps & {
   textStyle?: TextStyle   
 }
 
-export const Button: React.FC<ButtonProps> = ({ onPress, title, buttonStyle, textStyle }) => {
+export const Button: React.FC<ButtonProps> = ({ onPress, title, buttonStyle, textStyle, disabled, ...props }) => {
   const [scale] = useState(new Animated.Value(1))
 
   const handlePressIn = () => {
-    Animated.spring(scale, { toValue: 1.05, useNativeDriver: true }).start()
+    if (!disabled) {
+      Animated.spring(scale, { toValue: 1.05, useNativeDriver: true }).start()
+    }
   }
 
   const handlePressOut = () => {
-    Animated.spring(scale, { toValue: 1, useNativeDriver: true }).start()
+    if (!disabled) {
+      Animated.spring(scale, { toValue: 1, useNativeDriver: true }).start()
+    }
   }
 
   return (
     <Animated.View style={[styles.animatedContainer, { transform: [{ scale }]}]}>
       <Pressable
-        style={[styles.defaultButton, buttonStyle]} 
+        style={[
+          styles.defaultButton, 
+          disabled && styles.disabledButton,
+          buttonStyle
+        ]} 
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
-        onPress={onPress}
+        onPress={disabled ? undefined : onPress}
+        disabled={disabled}
+        {...props}
       >
-        <CustomText variant="paragraphMedium" style={[styles.defaultText, textStyle]}>
+        <CustomText variant="paragraphMedium" style={[
+          styles.defaultText, 
+          disabled && styles.disabledText,
+          textStyle
+        ]}>
           {title}
         </CustomText>
       </Pressable>
@@ -50,12 +64,22 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     borderRadius: 26,  
+    borderWidth: 2,
+    borderColor: '#FFF',
     marginTop: 56,         
     paddingVertical: 10,
+  },
+  disabledButton: {
+    backgroundColor: '#666',
+    borderColor: '#999',
   },
   defaultText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  disabledText: {
+    color: '#ccc',
   },
 })
